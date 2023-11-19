@@ -2,7 +2,7 @@ import axios from 'axios'
 import { set } from 'mongoose'
 import React, { useEffect, useState }  from 'react'
 import { useParams } from 'react-router-dom'
-function EditarUsuario() {
+function EditarVenta() {
 
     const params = useParams()
     
@@ -17,7 +17,7 @@ function EditarUsuario() {
         const[date_register, setDater]=useState('')
 
     useEffect(() => {
-        axios.post('/api/usuario/obtenerdatausuario', {iduser: params.iduser}).then(res => {
+        axios.post('/api/venta/obtenerdataventa', {idsale: params.idsale}).then(res => {
             console.log(res.data[0])
             const datausuario = res.data[0]
             setNamerol(datausuario.name_rol)

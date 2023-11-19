@@ -21,10 +21,10 @@ function App() {
                 <a className="nav-link active" aria-current="page" href="/">Listar Usuarios</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="AppV">Listar Ventas</a>
+                <a className="nav-link" href="/AppV">Listar Ventas</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Listar Productos</a>
+                <a className="nav-link" href="/">Listar Compras</a>
               </li>
             </ul>
             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>

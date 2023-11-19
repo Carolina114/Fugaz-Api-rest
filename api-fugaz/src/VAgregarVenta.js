@@ -17,7 +17,7 @@ function AgregarVenta() {
     const [amount, setamount] = useState('')
     const [unit_price, setunit_price] = useState('')
     const [subtotal, setsubtotal] = useState('')
-    const [name, setnamer] = useState('')
+    const [name, setname] = useState('')
     const [size, setsize] = useState('')
     const [color, setcolor] = useState('')
     const [photo, setphoto] = useState('')
@@ -71,41 +71,86 @@ function AgregarVenta() {
             <div className='row'>
                 <div className='col-sm-6 offset-3'>
                     <div className='mb-3'>
-                        <label htmlFor='name_rol' className='form-label'>Nombre del rol</label>
-                        <input type='text' className='form-control' value={name_rol} onChange={(e) => { setNamerol(e.target.value) }}></input>
+                        <label htmlFor='shipping_cost' className='form-label'>Estado del rol</label>
+                        <input type='text' className='form-control' value={shipping_cost} onChange={(e) => { setshipping_cost(e.target.value) }}></input>
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor='state_rol' className='form-label'>Estado del rol</label>
-                        <input type='text' className='form-control' value={state_rol} onChange={(e) => { setStaterol(e.target.value) }}></input>
+                        <label htmlFor='total_sale' className='form-label'>Estado del rol</label>
+                        <input type='text' className='form-control' value={total_sale} onChange={(e) => { settotal_sale(e.target.value) }}></input>
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor='name_permission' className='form-label'>Nombre del permiso</label>
-                        <input type='text' className='form-control' value={name_permission} onChange={(e) => { setNameper(e.target.value) }}></input>
+                        <label htmlFor='document' className='form-label'>Estado del rol</label>
+                        <input type='text' className='form-control' value={document} onChange={(e) => { setdocument(e.target.value) }}></input>
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor='name_user' className='form-label'>Nombre del Usuario</label>
-                        <input type='text' className='form-control' value={name_user} onChange={(e) => { setNameuser(e.target.value) }}></input>
+                        <label htmlFor='address' className='form-label'>Estado del rol</label>
+                        <input type='text' className='form-control' value={address} onChange={(e) => { setaddress(e.target.value) }}></input>
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor='email' className='form-label'>Correo</label>
-                        <input type='email' className='form-control' value={email} onChange={(e) => { setEmail(e.target.value) }}></input>
+                        <label htmlFor='city' className='form-label'>Estado del rol</label>
+                        <input type='text' className='form-control' value={city} onChange={(e) => { setcity(e.target.value) }}></input>
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor='password' className='form-label'>Contraseña</label>
-                        <input type='password' className='form-control' value={password} onChange={(e) => { setPassword(e.target.value) }}></input>
+                        <label htmlFor='phone' className='form-label'>Nombre del permiso</label>
+                        <input type='text' className='form-control' value={phone} onChange={(e) => { setphone(e.target.value) }}></input>
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor='state_user' className='form-label'>Estado del Usuario</label>
-                        <input type='text' className='form-control' value={state_user} onChange={(e) => { setStateuser(e.target.value) }}></input>
+                        <label htmlFor='order_status' className='form-label'>Nombre del Usuario</label>
+                        <input type='text' className='form-control' value={order_status} onChange={(e) => { setorder_status(e.target.value) }}></input>
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor='date_register' className='form-label'>Fecha de registro</label>
-                        <input type='date' className='form-control' value={date_register} onChange={(e) => { setDater(e.target.value) }}></input>
+                        <label htmlFor='Method_payment' className='form-label'>Correo</label>
+                        <input type='email' className='form-control' value={Method_payment} onChange={(e) => { setMethod_payment(e.target.value) }}></input>
                     </div>
-                    <button onClick={agregarUsuario} className="btn btn-success">Guardar Rol</button>
+                    <div className='mb-3'>
+                        <label htmlFor='date_order' className='form-label'>Contraseña</label>
+                        <input type='password' className='form-control' value={date_order} onChange={(e) => { setdate_order(e.target.value) }}></input>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor='deliver_date' className='form-label'>Estado del Usuario</label>
+                        <input type='text' className='form-control' value={deliver_date} onChange={(e) => { setdeliver_date(e.target.value) }}></input>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor='order_cost' className='form-label'>Fecha de registro</label>
+                        <input type='date' className='form-control' value={order_cost} onChange={(e) => { setorder_cost(e.target.value) }}></input>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor='amount' className='form-label'>Fecha de registro</label>
+                        <input type='date' className='form-control' value={amount} onChange={(e) => { setamount(e.target.value) }}></input>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor='unit_price' className='form-label'>Fecha de registro</label>
+                        <input type='date' className='form-control' value={unit_price} onChange={(e) => { setunit_price(e.target.value) }}></input>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor='subtotal' className='form-label'>Fecha de registro</label>
+                        <input type='date' className='form-control' value={subtotal} onChange={(e) => { setsubtotal(e.target.value) }}></input>
+                    </div>
+                    
+                    <div className='mb-3'>
+                        <label htmlFor='name' className='form-label'>Fecha de registro</label>
+                        <input type='date' className='form-control' value={name} onChange={(e) => { setname(e.target.value) }}></input>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor='size' className='form-label'>Fecha de registro</label>
+                        <input type='date' className='form-control' value={size} onChange={(e) => { setsize(e.target.value) }}></input>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor='color' className='form-label'>Fecha de registro</label>
+                        <input type='date' className='form-control' value={color} onChange={(e) => { setcolor(e.target.value) }}></input>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor='photo' className='form-label'>Fecha de registro</label>
+                        <input type='date' className='form-control' value={photo} onChange={(e) => { setphoto(e.target.value) }}></input>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor='sale_price' className='form-label'>Fecha de registro</label>
+                        <input type='date' className='form-control' value={sale_price} onChange={(e) => { setsale_price(e.target.value) }}></input>
+                    </div>
+                    <button onClick={agregarVenta} className="btn btn-success">Guardar Venta</button>
                 </div>
             </div>
         </div>
     )
 }
-export default AgregarUsuario
+export default AgregarVenta

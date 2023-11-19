@@ -1,7 +1,6 @@
 import React, { useEffect, useState }  from 'react'
 import UsuarioIndividual from './UsuarioIndividual'
 import axios from 'axios'
-import AgregarUsuario from './AgregarUsuario';
 
 function ListaUsuarios() {
     const[datausuarios, setdatausuario]=useState([])

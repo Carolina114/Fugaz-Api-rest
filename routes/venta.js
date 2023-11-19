@@ -38,27 +38,38 @@ router.get('/ejemplo', (req,res) => {
 //agregar usuario
 router.post('/Agregarventa', (req,res) => {
     const nuevaventa = new ModeloVenta({
-        name_rol: req.body.name_rol,
-        state_rol: req.body.state_rol,
-        name_permission: req.body.name_permission,
-        name_user: req.body.name_user,
-        email: req.body.email,
-        password: req.body.password,
-        state_user: req.body.state_user,
-        date_register: req.body.date_register,
-        iduser: req.body.iduser
+        shipping_cost: req.body.shipping_cost,
+        total_sale: req.body.total_sale,
+        document: req.body.document,
+        address: req.body.address,
+        city: req.body.city,
+        phone: req.body.phone,
+        order_status: req.body.order_status,
+        Method_payment: req.body.Method_payment,
+        date_order: req.body.date_order,
+        deliver_date: req.body.deliver_date,
+        order_cost: req.body.order_cost,
+        amount: req.body.amount,
+        unit_price: req.body.unit_price,
+        subtotal: req.body.subtotal,
+        name: req.body.name,
+        size: req.body.size,
+        color: req.body.color,
+        photo: req.body.photo,
+        sale_price: req.body.sale_price,
+        idsale: req.body.idsale
     })
-    nuevousuario.save()
+    nuevaventa.save()
     .then(() => {
-        res.send('Usuario agregado correctamente');
+        res.send('Venta agregada correctamente');
     })
     .catch(err => {
         res.send(err);
     });
 } )
 //obetener todos los usuario
-router.get('/obtenerusuarios', (req, res) => {
-    ModeloUsuario.find({})
+router.get('/obtenerventas', (req, res) => {
+    ModeloVenta.find({})
         .then(docs => {
             res.send(docs);
         })
@@ -68,8 +79,8 @@ router.get('/obtenerusuarios', (req, res) => {
 });
 
 //obetener data de usuario
-router.post('/obtenerdatausuario', (req, res) => {
-    ModeloUsuario.find({iduser:req.body.iduser})
+router.post('/obtenerdataventa', (req, res) => {
+    ModeloVenta.find({idsale:req.body.idsale})
         .then(docs => {
             res.send(docs);
         })
@@ -79,20 +90,32 @@ router.post('/obtenerdatausuario', (req, res) => {
 });
 
 //actualizar usuaio
-router.post('/actualizausuario', (req, res) => {
-    ModeloUsuario.findOneAndUpdate({iduser:req.body.iduser}, {
-        name_rol: req.body.name_rol,
-        state_rol: req.body.state_rol,
-        name_permission: req.body.name_permission,
-        name_user: req.body.name_user,
-        email: req.body.email,
-        password: req.body.password,
-        state_user: req.body.state_user,
-        date_register: req.body.date_register,
-        iduser: req.body.iduser
+router.post('/actualizaventa', (req, res) => {
+    ModeloVenta.findOneAndUpdate({idsale:req.body.idsale}, {
+        $set:{
+            shipping_cost: req.body.shipping_cost,
+        total_sale: req.body.total_sale,
+        document: req.body.document,
+        address: req.body.address,
+        city: req.body.city,
+        phone: req.body.phone,
+        order_status: req.body.order_status,
+        Method_payment: req.body.Method_payment,
+        date_order: req.body.date_order,
+        deliver_date: req.body.deliver_date,
+        order_cost: req.body.order_cost,
+        amount: req.body.amount,
+        unit_price: req.body.unit_price,
+        subtotal: req.body.subtotal,
+        name: req.body.name,
+        size: req.body.size,
+        color: req.body.color,
+        photo: req.body.photo,
+        sale_price: req.body.sale_price,
+        idsale: req.body.idsale}
     })
         .then(docs => {
-            res.send('usuario actualizado');
+            res.send('venta actualizada');
         })
         .catch(err => {
             res.send(err);
@@ -100,9 +123,9 @@ router.post('/actualizausuario', (req, res) => {
 });
 
 
-router.post('/borrarusuario', async (req, res) => {
+router.post('/borrarventa', async (req, res) => {
     try {
-        const deletedUser = await ModeloUsuario.findOneAndDelete({ iduser: req.body.iduser });
+        const deletedVenta = await ModeloVenta.findOneAndDelete({ idsale: req.body.idsale});
         if (deletedUser) {
             res.send('Venta eliminada');
         } else {

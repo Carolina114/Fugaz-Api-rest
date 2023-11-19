@@ -69,6 +69,7 @@ router.post('/obtenerdatausuario', (req, res) => {
 //actualizar usuaio
 router.post('/actualizausuario', (req, res) => {
     ModeloUsuario.findOneAndUpdate({iduser:req.body.iduser}, {
+        
         name_rol: req.body.name_rol,
         state_rol: req.body.state_rol,
         name_permission: req.body.name_permission,
