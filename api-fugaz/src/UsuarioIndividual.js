@@ -34,6 +34,7 @@ function UsuarioIndividual({ usuario }) {
                                     <TableRow className="bg-danger" label="Rol" value={usuario.name_rol} />
                                     <TableRow label="Estado del Rol" value={usuario.state_rol} />
                                     <TableRow label="Permiso" value={usuario.name_permission} />
+                                    <TableRow label="Nombre de Usuario" value={usuario.name_user}/>
                                     <TableRow label="Email" value={usuario.email} />
                                     <TableRow label="Contraseña" value={usuario.passaword} />
                                     <TableRow label="Estado del Usuario" value={usuario.state_user} />

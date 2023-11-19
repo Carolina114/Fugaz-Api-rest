@@ -1,52 +1,71 @@
-import React  from 'react'
-import axios from 'axios'
-import {Link, useNavigate} from 'react-router-dom'
-function UsuarioIndividual({usuario}) {
+import React from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
-    const navegar = useNavigate()
+function UsuarioIndividual({ usuario }) {
+    const navegar = useNavigate();
 
-    //funcion para eliminar usuario
-    function borrarusuario(iduser){
-        axios.post('/api/usuario/borrarusuario', {iduser: iduser}).then(res => {
-            console.log(res.data[0])
-            alert(res.data)
-            navegar(0)
-        }).catch(err => {
-            console.log(err)
-        } )
+    // Función para eliminar usuario
+    function borrarUsuario(iduser) {
+        axios
+            .post('/api/usuario/borrarusuario', { iduser: iduser })
+            .then((res) => {
+                console.log(res.data[0]);
+                alert(res.data);
+                navegar(0);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
-
-
-
-    return(
-        <div className="conteiner">
-            <div className="row">
-
-            <div className="col-sm-6 offset-3">
-                <ul className="list-group">
-                    <li className="list-group-item">{usuario.iduser}</li>
-                    <li className="list-group-item">{usuario.name_rol}</li>
-                    <li className="list-group-item">{usuario.state_rol}</li>
-                    <li className="list-group-item">{usuario.name_permission}</li>
-                    <li className="list-group-item">{usuario.email}</li>
-                    <li className="list-group-item">{usuario.passaword}</li>
-                    <li className="list-group-item">{usuario.state_user}</li>
-                    <li className="list-group-item">{usuario.date_register}</li>
-                </ul>
-                <br></br>
-                <Link to={`/editarusuario/${usuario.iduser}`}><li className="btn btn-success">Editar</li></Link>
-                &nbsp; 
-                <button className="btn btn-danger" onClick={()=>{borrarusuario(usuario.iduser)}}>Eliminar</button>
-                <hr className="mt-4"></hr>
-
+    return (
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-8">
+                    <div className="card">
+                        <div className="card-header bg-primary text-white">
+                            <h2>Detalles del Usuario</h2>
+                        </div>
+                        <div className="card-body">
+                            <table className="table table-bordered">
+                                <tbody>
+                                    <TableRow label="ID" value={usuario.iduser} />
+                                    <TableRow className="bg-danger" label="Rol" value={usuario.name_rol} />
+                                    <TableRow label="Estado del Rol" value={usuario.state_rol} />
+                                    <TableRow label="Permiso" value={usuario.name_permission} />
+                                    <TableRow label="Email" value={usuario.email} />
+                                    <TableRow label="Contraseña" value={usuario.passaword} />
+                                    <TableRow label="Estado del Usuario" value={usuario.state_user} />
+                                    <TableRow label="Fecha de Registro" value={usuario.date_register} />
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="card-footer d-flex justify-content-between">
+                            <Link to={`/editarusuario/${usuario.iduser}`} className="btn btn-success">
+                                Editar
+                            </Link>
+                            <button
+                                className="btn btn-danger"
+                                onClick={() => {
+                                    borrarUsuario(usuario.iduser);
+                                }}
+                            >
+                                Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-
-            </div>
-
         </div>
-    )
+    );
 }
-export default UsuarioIndividual
+
+const TableRow = ({ label, value }) => (
+    <tr>
+        <th>{label}</th>
+        <td>{value}</td>
+    </tr>
+);
+
+export default UsuarioIndividual;

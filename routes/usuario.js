@@ -11,9 +11,9 @@ const eschemausuario = new eschema({
     name_user: {type: String, require: true},
     email: {type: String, require: true},
     password: {type: String, require: true},
-    state_user: {type: String, require: true},
+    state_user: {type: Boolean, require: true},
     date_register: {type: String, require: true},
-    iduser: String
+    iduser: isObjectIdOrHexString()
 })
 const ModeloUsuario = mongoose.model('usuarios', eschemausuario)
 module.exports = router;
