@@ -24,7 +24,7 @@ const eschemaventa = new eschema({
     color: {type: String, require: true},
     photo: {type: String, require: true},
     sale_price: {type: Float32Array, require: true},
-    idsale: mongoose.isObjectIdOrHexString()
+    idsale: String
 })
 
 const ModeloVenta = mongoose.model('venta', eschemaventa)

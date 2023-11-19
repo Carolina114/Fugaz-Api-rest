@@ -1,7 +1,8 @@
 import React, { useEffect, useState }  from 'react'
 import UsuarioIndividual from './UsuarioIndividual'
+import AgregarVenta from './VAgregarVenta';
 import axios from 'axios'
-function ListaUsuarios() {
+function ListaVentas() {
     const[datausuarios, setdatausuario]=useState([])
 
     useEffect(() =>{
@@ -14,19 +15,24 @@ function ListaUsuarios() {
     } )
 
     //mapeo de la lista
-    const listausuarios = datausuarios.map(usuario =>{
+    const listaventas = datausuarios.map(venta =>{
         return(
             <div>
-                <UsuarioIndividual usuario={usuario}/>
+                <VentaIndividual venta={venta}/>
             </div>
         )
     } )
 
     return(
         <div>
-            <h2>Lista de Usuarios</h2>
-            {listausuarios}
+            <h2>Lista de Ventas</h2>
+            <button className="btn btn-info"
+            onClick= { ()=>{window.location='agregarventa'} } 
+            >
+                Agregar Venta
+            </button>
+            {listaventas}
         </div>
     )
 }
-export default ListaUsuarios
+export default ListaVentas
