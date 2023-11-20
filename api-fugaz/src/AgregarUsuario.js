@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import uniquid from 'uniquid';
 import App from './App';
 
@@ -15,7 +17,7 @@ function AgregarUsuario() {
     const [date_register, setDater] = useState('');
 
     function agregarUsuario() {
-        var Usuario = {
+        const Usuario = {
             name_rol: name_rol,
             state_rol: state_rol,
             name_permission: name_permission,
@@ -31,15 +33,13 @@ function AgregarUsuario() {
             .post('/api/usuario/Agregarusuario', Usuario)
             .then((res) => {
                 if (res.data && res.data.message) {
-                    alert(res.data.message);
+                    toast.error(res.data.message);
                 } else {
-                    console.log(res); // Imprime la respuesta completa para ver su estructura
-                    alert('Usuario agregado correctamente');
+                    toast.success('Usuario agregado correctamente');
                 }
             })
-            .catch((err) => {
-                console.log(err); // Imprime los errores en la consola para depuración
-                alert('Error al procesar la solicitud');
+            .catch(() => {
+                toast.error('Error al procesar la solicitud');
             });
     }
 
@@ -154,6 +154,7 @@ function AgregarUsuario() {
                     <button onClick={agregarUsuario} className='btn btn-success'>
                         Guardar Rol
                     </button>
+                    <ToastContainer position='bottom-right' autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
                 </div>
             </div>
         </div>

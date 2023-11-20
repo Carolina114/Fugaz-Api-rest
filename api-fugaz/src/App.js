@@ -4,6 +4,8 @@ import ListaUsuarios from './ListaUsuarios';
 import AgregarUsuario from './AgregarUsuario';
 import EditarUsuario from './EditarUsuario';
 import AgregarCompra from './AgregarCompra';
+import VListarVenta from './VListarVenta'
+import VAgregarVenta from './VAgregarVenta';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ListaCompras from './ListaCompras';
 
@@ -12,6 +14,7 @@ function App() {
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
+          <img src={logo} alt="" width="30" height="24"></img>
           <a className="navbar-brand" href="/">Crud Fugaz Retro</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -22,19 +25,13 @@ function App() {
                 <a className="nav-link active" aria-current="page" href="/">Listar Usuarios</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="agregarUsuario">Agregar usuario</a>
+                <a className="nav-link" href="VListarVenta">Listar Venta</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="AppV">Listar Ventas</a>
+                <a className="nav-link" href="VAgregarVenta">Agregar venta</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="AppV">Agregar Venta</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="AppV">Listar Productos</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="AppV">Agregar producto</a>
+                <a className="nav-link" href="/">Listar Compras</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="listaCompra">Lista Compras</a>
@@ -53,9 +50,11 @@ function App() {
         <Routes>
           <Route path='/' element={<ListaUsuarios />} exact></Route>
           <Route path='/agregarusuario' element={<AgregarUsuario />} exact></Route>
-          <Route path='/editarusuario/:iduser' element={<EditarUsuario />} exact ></Route>
-         
+          <Route path='/editarusuario/:iduser' element={<EditarUsuario />} exact ></Route>       
           <Route path='/agregarcompra' element={<AgregarCompra />} exact></Route>
+
+          <Route path='/vlistaventa' element={<VListarVenta />} exact></Route>
+          <Route path='/vagregarventa' element={<VAgregarVenta />} exact></Route>
         </Routes>
       </BrowserRouter>
     </div>

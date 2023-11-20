@@ -1,6 +1,7 @@
 import React, { useEffect, useState }  from 'react'
 import UsuarioIndividual from './UsuarioIndividual'
 import axios from 'axios'
+
 function ListaUsuarios() {
     const[datausuarios, setdatausuario]=useState([])
 
@@ -25,6 +26,11 @@ function ListaUsuarios() {
     return(
         <div>
             <h2>Lista de Usuarios</h2>
+            <button className="btn btn-info"
+            onClick= { ()=>{window.location='agregarusuario'} } 
+            >
+                Agregar Usuario
+            </button>
             {listausuarios}
         </div>
     )

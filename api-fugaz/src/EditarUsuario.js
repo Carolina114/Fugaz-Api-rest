@@ -28,13 +28,14 @@ function EditarUsuario() {
             setPassword(datausuario.password)
             setStateuser(datausuario.state_user)
             setDater(datausuario.date_register)
+
         })
     }, [])
 
     //Funciín que actualiza
     function editarUsuario() {
         //obj de actualizar
-        const actualizarusuario ={
+        const actualizarusuario={
             name_rol: name_rol,
             state_rol: state_rol,
             name_permission: name_permission,

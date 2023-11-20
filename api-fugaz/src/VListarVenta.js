@@ -1,32 +1,37 @@
 import React, { useEffect, useState }  from 'react'
-import UsuarioIndividual from './UsuarioIndividual'
+import VentaIndividual from './VentaIndividual'
 import axios from 'axios'
-function ListaUsuarios() {
-    const[datausuarios, setdatausuario]=useState([])
+function ListaVentas() {
+    const[dataventas, setdataventa]=useState([])
 
     useEffect(() =>{
-        axios.get('/api/usuario/obtenerusuarios').then(res => {
+        axios.get('/api/venta/obtenerventas').then(res => {
             console.log(res)
-            setdatausuario(res.data)
+            setdataventa(res.data)
         }).catch(err =>{
             console.log(err)
         })
     } )
 
     //mapeo de la lista
-    const listausuarios = datausuarios.map(usuario =>{
+    const listaventas = dataventas.map(venta =>{
         return(
             <div>
-                <UsuarioIndividual usuario={usuario}/>
+                <VentaIndividual venta={venta}/>
             </div>
         )
     } )
 
     return(
         <div>
-            <h2>Lista de Usuarios</h2>
-            {listausuarios}
+            <h2>Lista de Ventas</h2>
+            <button className="btn btn-info"
+            onClick= { ()=>{window.location='vagregarventa'} } 
+            >
+                Agregar Venta
+            </button>
+            {listaventas}
         </div>
     )
 }
-export default ListaUsuarios
+export default ListaVentas
