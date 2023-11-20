@@ -13,7 +13,7 @@ const eschemausuario = new eschema({
     password: {type: String, require: true},
     state_user: {type: Boolean, require: true},
     date_register: {type: String, require: true},
-    iduser: isObjectIdOrHexString()
+    iduser: {type: String}
 })
 const ModeloUsuario = mongoose.model('usuarios', eschemausuario)
 module.exports = router;

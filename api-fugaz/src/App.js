@@ -3,7 +3,9 @@ import './App.css';
 import ListaUsuarios from './ListaUsuarios';
 import AgregarUsuario from './AgregarUsuario';
 import EditarUsuario from './EditarUsuario';
+import AgregarCompra from './AgregarCompra';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import ListaCompras from './ListaCompras';
 
 function App() {
   return (
@@ -34,6 +36,12 @@ function App() {
               <li className="nav-item">
                 <a className="nav-link" href="AppV">Agregar producto</a>
               </li>
+              <li className="nav-item">
+                <a className="nav-link" href="listaCompra">Lista Compras</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="agregarCompra">Agregar compra</a>
+              </li>
             </ul>
             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
             <button className="btn btn-outline-success" type="submit">Search</button>
@@ -46,6 +54,8 @@ function App() {
           <Route path='/' element={<ListaUsuarios />} exact></Route>
           <Route path='/agregarusuario' element={<AgregarUsuario />} exact></Route>
           <Route path='/editarusuario/:iduser' element={<EditarUsuario />} exact ></Route>
+         
+          <Route path='/agregarcompra' element={<AgregarCompra />} exact></Route>
         </Routes>
       </BrowserRouter>
     </div>

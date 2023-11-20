@@ -6,7 +6,9 @@ const archivoBD = require('./conexion')
 
 //Import of archivo of routes and model user
 const rutausuario = require('./routes/usuario')
-const rutaventa = require('./routes/venta')
+const rutacompra = require('./routes/compra')
+//const rutaventa = require('./routes/venta')
+
 
 //Import body parser
 const bodyParser = require ('body-parser')
@@ -16,7 +18,8 @@ app.use(bodyParser.urlencoded({extended:'true'}))
 const PORT = 3000;
 
 app.use('/api/usuario', rutausuario)
-app.use('/api/venta', rutaventa)
+app.use('/api/compra', rutacompra)
+//app.use('/api/venta', rutaventa)
 
 app.get('/', (req, res) => {
     res.end('Bienvenidos al servidor backend')
