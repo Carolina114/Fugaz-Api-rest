@@ -3,6 +3,8 @@ import './App.css';
 import ListaUsuarios from './ListaUsuarios';
 import AgregarUsuario from './AgregarUsuario';
 import EditarUsuario from './EditarUsuario';
+import VListarVenta from './VListarVenta'
+import VAgregarVenta from './VAgregarVenta';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -21,7 +23,10 @@ function App() {
                 <a className="nav-link active" aria-current="page" href="/">Listar Usuarios</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/AppV">Listar Ventas</a>
+                <a className="nav-link" href="VListarVenta">Listar Venta</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="VAgregarVenta">Agregar venta</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/">Listar Compras</a>
@@ -38,6 +43,8 @@ function App() {
           <Route path='/' element={<ListaUsuarios />} exact></Route>
           <Route path='/agregarusuario' element={<AgregarUsuario />} exact></Route>
           <Route path='/editarusuario/:iduser' element={<EditarUsuario />} exact ></Route>
+          <Route path='/vlistaventa' element={<VListarVenta />} exact></Route>
+          <Route path='/vagregarventa' element={<VAgregarVenta />} exact></Route>
         </Routes>
       </BrowserRouter>
     </div>

@@ -54,7 +54,7 @@ function VentaIndividual({venta}) {
                             </table>
                         </div>
                         <div className="card-footer d-flex justify-content-between">
-                            <Link to={`/editarventa/${venta.idsale}`} className="btn btn-success">
+                            <Link to={`/veditarventa/${venta.idsale}`} className="btn btn-success">
                                 Editar
                             </Link>
                             <button

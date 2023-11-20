@@ -36,7 +36,7 @@ router.get('/ejemplo', (req,res) => {
 });*/
 
 //agregar usuario
-router.post('/Agregarventa', (req,res) => {
+router.post('/vagregarventa', (req,res) => {
     const nuevaventa = new ModeloVenta({
         shipping_cost: req.body.shipping_cost,
         total_sale: req.body.total_sale,

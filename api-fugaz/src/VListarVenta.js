@@ -26,7 +26,7 @@ function ListaVentas() {
         <div>
             <h2>Lista de Ventas</h2>
             <button className="btn btn-info"
-            onClick= { ()=>{window.location='agregarventa'} } 
+            onClick= { ()=>{window.location='vagregarventa'} } 
             >
                 Agregar Venta
             </button>

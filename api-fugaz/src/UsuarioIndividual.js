@@ -42,12 +42,12 @@ function UsuarioIndividual({ usuario }) {
                                 </tbody>
                             </table>
                         </div>
-                        <div className="card-footer d-flex justify-content-between">
+                        <div className="card-footer d-flex align-items-center">
                             <Link to={`/editarusuario/${usuario.iduser}`} className="btn btn-success">
                                 Editar
                             </Link>
                             <button
-                                className="btn btn-danger"
+                                className="btn btn-danger d-none"
                                 onClick={() => {
                                     borrarUsuario(usuario.iduser);
                                 }}

@@ -5,7 +5,7 @@ import AgregarVenta from './VAgregarVenta';
 import EditarVenta from './VEditarVenta';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-function AppV() {
+function App() {
   return (
       <BrowserRouter>
         <Routes>
@@ -17,4 +17,4 @@ function AppV() {
   );
 }
 
-export default AppV;
+export default App;

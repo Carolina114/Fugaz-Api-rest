@@ -69,7 +69,7 @@ router.post('/obtenerdatausuario', (req, res) => {
 //actualizar usuaio
 router.post('/actualizausuario', (req, res) => {
     ModeloUsuario.findOneAndUpdate({iduser:req.body.iduser}, {
-        
+        $set:{
         name_rol: req.body.name_rol,
         state_rol: req.body.state_rol,
         name_permission: req.body.name_permission,
@@ -79,6 +79,7 @@ router.post('/actualizausuario', (req, res) => {
         state_user: req.body.state_user,
         date_register: req.body.date_register,
         iduser: req.body.iduser
+        }
     })
         .then(docs => {
             res.send('usuario actualizado');
