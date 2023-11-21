@@ -33,7 +33,7 @@ function App() {
                 <a className="nav-link" href="agregarCompra">Agregar compra</a>
               </li>
                <li className="nav-item">
-                <a className="nav-link" href="listarVenta">Listar Venta</a>
+                <a className="nav-link" href="listaVenta">Lista Venta</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="agregarVenta">Agregar venta</a>
