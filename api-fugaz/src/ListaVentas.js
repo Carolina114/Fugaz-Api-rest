@@ -5,7 +5,7 @@ function ListaVentas() {
     const[dataventas, setdataventa]=useState([])
 
     useEffect(() =>{
-        axios.get('/api/venta/obtenerventas').then(res => {
+        axios.get('/api/venta/obtenerventas'). then(res => {
             console.log(res)
             setdataventa(res.data)
         }).catch(err =>{
@@ -24,12 +24,7 @@ function ListaVentas() {
 
     return(
         <div>
-            <h2>Lista de Ventas</h2>
-            <button className="btn btn-info"
-            onClick= { ()=>{window.location='vagregarventa'} } 
-            >
-                Agregar Venta
-            </button>
+            <h2>Lista de ventas</h2>
             {listaventas}
         </div>
     )

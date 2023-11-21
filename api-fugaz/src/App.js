@@ -3,11 +3,13 @@ import './App.css';
 import ListaUsuarios from './ListaUsuarios';
 import AgregarUsuario from './AgregarUsuario';
 import EditarUsuario from './EditarUsuario';
-import AgregarCompra from './AgregarCompra';
-import VListarVenta from './VListarVenta'
-import VAgregarVenta from './VAgregarVenta';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ListaCompras from './ListaCompras';
+import AgregarCompra from './AgregarCompra';
+import EditarCompra from './EditarCompra';
+import ListaVentas from './ListaVentas';
+import AgregarVenta from './AgregarVenta';
+import EditarVenta from './EditarVenta';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
@@ -25,19 +27,16 @@ function App() {
                 <a className="nav-link active" aria-current="page" href="/">Listar Usuarios</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="VListarVenta">Listar Venta</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="VAgregarVenta">Agregar venta</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">Listar Compras</a>
-              </li>
-              <li className="nav-item">
                 <a className="nav-link" href="listaCompra">Lista Compras</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="agregarCompra">Agregar compra</a>
+              </li>
+               <li className="nav-item">
+                <a className="nav-link" href="listarVenta">Listar Venta</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="agregarVenta">Agregar venta</a>
               </li>
             </ul>
             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
@@ -51,10 +50,12 @@ function App() {
           <Route path='/' element={<ListaUsuarios />} exact></Route>
           <Route path='/agregarusuario' element={<AgregarUsuario />} exact></Route>
           <Route path='/editarusuario/:iduser' element={<EditarUsuario />} exact ></Route>       
+          <Route path='/listacompra' element={<ListaCompras />} exact></Route>
           <Route path='/agregarcompra' element={<AgregarCompra />} exact></Route>
-
-          <Route path='/vlistaventa' element={<VListarVenta />} exact></Route>
-          <Route path='/vagregarventa' element={<VAgregarVenta />} exact></Route>
+          <Route path='/editarcompra/:idbuy' element={<EditarCompra />} exact ></Route>
+          <Route path='/listaventa' element={<ListaVentas />} exact></Route>
+          <Route path='/agregarventa' element={<AgregarVenta />} exact></Route>
+          <Route path='/editarventa/:idsale' element={<EditarVenta />} exact ></Route>
         </Routes>
       </BrowserRouter>
     </div>

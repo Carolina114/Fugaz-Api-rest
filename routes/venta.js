@@ -5,8 +5,8 @@ const mongoose = require('mongoose')
 const eschema = mongoose.Schema
 
 const eschemaventa = new eschema({
-    shipping_cost: {type: Float32Array, require: true},
-    total_sale: {type: Float32Array, require: true},
+    shipping_cost: {type: Number, require: true},
+    total_sale: {type: Number, require: true},
     document: {type: String, require: true},
     address: {type: String, require: true},
     city: {type: String, require: true},
@@ -16,17 +16,16 @@ const eschemaventa = new eschema({
     date_order: {type: Date, require: true},
     deliver_date: {type: Date, require: true},
     order_cost: {type: String, require: true},
-    amount: {type: Int32Array, require: true},
-    unit_price: {type: Float32Array, require: true},
-    subtotal: {type: Float32Array, require: true},
+    amount: {type: Number, require: true},
+    unit_price: {type: Number, require: true},
+    subtotal: {type: Number, require: true},
     name: {type: String, require: true},
     size: {type: String, require: true},
     color: {type: String, require: true},
     photo: {type: String, require: true},
-    sale_price: {type: Float32Array, require: true},
+    sale_price: {type: Number, require: true},
     idsale: String
-})
-
+});
 const ModeloVenta = mongoose.model('venta', eschemaventa)
 module.exports = router;
 
@@ -36,7 +35,7 @@ router.get('/ejemplo', (req,res) => {
 });*/
 
 //agregar usuario
-router.post('/VAgregarVenta', (req,res) => {
+router.post('/Agregarventa', (req,res) => {
     const nuevaventa = new ModeloVenta({
         shipping_cost: req.body.shipping_cost,
         total_sale: req.body.total_sale,
@@ -92,8 +91,7 @@ router.post('/obtenerdataventa', (req, res) => {
 //actualizar usuaio
 router.post('/actualizaventa', (req, res) => {
     ModeloVenta.findOneAndUpdate({idsale:req.body.idsale}, {
-        $set:{
-            shipping_cost: req.body.shipping_cost,
+        shipping_cost: req.body.shipping_cost,
         total_sale: req.body.total_sale,
         document: req.body.document,
         address: req.body.address,
@@ -112,7 +110,7 @@ router.post('/actualizaventa', (req, res) => {
         color: req.body.color,
         photo: req.body.photo,
         sale_price: req.body.sale_price,
-        idsale: req.body.idsale}
+        idsale: req.body.idsale
     })
         .then(docs => {
             res.send('venta actualizada');
@@ -125,14 +123,14 @@ router.post('/actualizaventa', (req, res) => {
 
 router.post('/borrarventa', async (req, res) => {
     try {
-        const deletedVenta = await ModeloVenta.findOneAndDelete({ idsale: req.body.idsale});
-        if (deletedUser) {
+        const deletedSale = await ModeloVenta.findOneAndDelete({ idsale: req.body.idsale});
+        if (deletedSale) {
             res.send('Venta eliminada');
         } else {
-            res.status(404).send('Venta no encontrada');
+            res.status(404).send('Venta no encontrado');
         }
     } catch (err) {
         res.status(500).send(err.message);
     }
 });
-    
+        

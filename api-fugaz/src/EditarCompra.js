@@ -1,55 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import uniquid from 'uniquid';
-function AgregarCompra() {
-    //hooks
+import axios from 'axios'
+import React, { useEffect, useState }  from 'react'
+import { useParams } from 'react-router-dom'
 
-    const [buy_date, setBuydate]=useState('')
-    const [price_total, setPricetotal]=useState('')
-    const [payment_methods, setPaymentmethods]=useState('')
-    const [quantity, setQuantity]=useState('')
-    const [subtotal, setSubtotal]=useState('')
-    const [name_category, setNamecategory]=useState('')
-    const [name_input, setNameinput]=useState('')
-    const [stock, setStock]=useState('')
-    const [unit_price, setUnitprice]=useState('')
-    const [status_input, setStatusinput]=useState('')
-    const [type, setType]=useState('')
-    const [full_name, setFullname]=useState('')
-    const [document, setDocument]=useState('')
-    const [rut, setRut]=useState('')
-    const [legal_representative_name, setLegalrepresentativename]=useState('')
-    const [phone, setPhone]=useState('')
-    const [address, setAddress]=useState('')
-    const [statuspro, setStatuspro]=useState('')
+function EditarCompra() {
 
+    const params = useParams()
     
+        //hooks
+        const [buy_date, setBuydate]=useState('')
+        const [price_total, setPricetotal]=useState('')
+        const [payment_methods, setPaymentmethods]=useState('')
+        const [quantity, setQuantity]=useState('')
+        const [subtotal, setSubtotal]=useState('')
+        const [name_category, setNamecategory]=useState('')
+        const [name_input, setNameinput]=useState('')
+        const [stock, setStock]=useState('')
+        const [unit_price, setUnitprice]=useState('')
+        const [status_input, setStatusinput]=useState('')
+        const [type, setType]=useState('')
+        const [full_name, setFullname]=useState('')
+        const [document, setDocument]=useState('')
+        const [rut, setRut]=useState('')
+        const [legal_representative_name, setLegalrepresentativename]=useState('')
+        const [phone, setPhone]=useState('')
+        const [address, setAddress]=useState('')
+        const [statuspro, setStatuspro]=useState('')
+
     useEffect(() => {
-        setStock(quantity); // Actualiza el stock con la cantidad ingresada
-    }, [quantity]);
+        axios.post('/api/compra/obtenerdatacompra', {idbuy: params.idbuy}).then(res => {
+            console.log(res.data[0])
+            const datacompra = res.data[0]
+            setBuydate(datacompra.buy_date)
+            setPricetotal(datacompra.price_total)
+            setPaymentmethods(datacompra.payment_methods)
+            setQuantity(datacompra.quantity)
+            setSubtotal(datacompra.subtotal)
+            setNamecategory(datacompra.name_category)
+            setNameinput(datacompra.name_input)
+            setStock(datacompra.stock)
+            setUnitprice(datacompra.unit_price)
+            setStatusinput(datacompra.status_input)
+            setType(datacompra.type)
+            setFullname(datacompra.full_name)
+            setDocument(datacompra.document)
+            setRut(datacompra.rut)
+            setLegalrepresentativename(datacompra.legal_representative_name)
+            setPhone(datacompra.phone)
+            setAddress(datacompra.address)
+            setStatuspro(datacompra.statuspro)
+        })
+    }, [])
 
-    
-
-    useEffect(() => {
-        if (quantity && stock) {
-            const availableStatus = parseInt(quantity) <= parseInt(stock) ? 'disponible' : 'agotado';
-            setStatusinput(availableStatus);
-        }
-    }, [quantity, stock]);
-
-    useEffect(() => {
-        const subtotalValue = quantity && unit_price ? quantity * parseFloat(unit_price) : 0;
-        setSubtotal(subtotalValue);
-      }, [quantity, unit_price]);
-      
-
-    useEffect(() => {
-        const total = subtotal ? subtotal : 0;
-        setPricetotal(total);
-    }, [subtotal]);
-
-    function agregarCompra(){
-        var Compra ={
+    //Funciín que actualiza
+    function editarCompra() {
+        //obj de actualizar
+        const actualizarcompra ={
             buy_date: buy_date,
             price_total: price_total,
             payment_methods: payment_methods,
@@ -68,18 +73,19 @@ function AgregarCompra() {
             phone: phone,
             address: address,
             statuspro: statuspro,
-            idbuy: uniquid()
-
-            
+            idbuy: params.idbuy
         }
-        console.log(Compra)
-        axios.post('/api/compra/Agregarcompra', Compra)
+
+
+        //hacer la peticion con axios 
+        axios.post('/api/compra/actualizacompra', actualizarcompra)
         .then(res => {
+            console.log(res.data)
             if (res.data && res.data.message) {
             alert(res.data.message);
             } else {
             console.log(res); // Imprime la respuesta completa para ver su estructura
-            alert('Compra agregada correctamente');
+            alert('Compra actualizado');
             }
         })
         .catch(err => {
@@ -88,13 +94,14 @@ function AgregarCompra() {
         });
     }
 
+
     return(
         <div className='container'>
-            <div className='row'>
-                <h2 className='mt-4'>Crear una nueva compra</h2>
-            </div>
+        <div className='row'>
+            <h2 className='mt-4'>Editar Compra</h2>
+        </div>
 
-            <div className='row'>
+        <div className='row'>
                 <div className='col-sm-6 offset-3'>
                     <div className='mb-3'>
                         <label htmlFor='buy_date' className='form-label'>Fecha de compra</label>
@@ -198,17 +205,11 @@ function AgregarCompra() {
                         <input type='number' className='form-control' value={price_total} onChange={(e) => {setPricetotal(e.target.value)}}></input>
                     </div>
 
-
-
-
-
-
-
-                    </div>
-                    <button onClick={agregarCompra} className="btn btn-success">Guardar Compra</button>
-                </div>
+                <button onClick={editarCompra} className="btn btn-success">Actualizar Compra</button>
             </div>
         </div>
+    </div>
+    </div>
     )
 }
-export default AgregarCompra
+export default EditarCompra
