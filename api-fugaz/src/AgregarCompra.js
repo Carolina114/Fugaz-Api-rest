@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import uniquid from 'uniquid';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function AgregarCompra() {
     //hooks
 
@@ -73,18 +75,20 @@ function AgregarCompra() {
             
         }
         console.log(Compra)
-        axios.post('/api/compra/Agregarcompra', Compra)
-        .then(res => {
+
+        axios
+        .post('/api/compra/Agregarcompra', Compra)
+        .then((res) => {
             if (res.data && res.data.message) {
-            alert(res.data.message);
+            toast.error(res.data.message);
             } else {
             console.log(res); // Imprime la respuesta completa para ver su estructura
-            alert('Compra agregada correctamente');
+            toast.success('Compra agregada correctamente');
             }
         })
-        .catch(err => {
-            console.log(err); // Imprime los errores en la consola para depuración
-            alert('Error al procesar la solicitud');
+        .catch(() => {
+             // Imprime los errores en la consola para depuración
+            toast.error('Error al procesar la solicitud');
         });
     }
 
@@ -198,14 +202,9 @@ function AgregarCompra() {
                         <input type='number' className='form-control' value={price_total} onChange={(e) => {setPricetotal(e.target.value)}}></input>
                     </div>
 
-
-
-
-
-
-
                     </div>
                     <button onClick={agregarCompra} className="btn btn-success">Guardar Compra</button>
+                    <ToastContainer position='bottom-right' autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
                 </div>
             </div>
         </div>

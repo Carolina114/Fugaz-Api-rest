@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import uniquid from 'uniquid';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function AgregarVenta() {
     //hooks
 
@@ -74,18 +76,19 @@ function AgregarVenta() {
             
         }
         console.log(Venta)
-        axios.post('/api/venta/Agregarventa', Venta)
-        .then(res => {
+        axios
+        .post('/api/venta/Agregarventa', Venta)
+        .then((res) => {
             if (res.data && res.data.message) {
-            alert(res.data.message);
+            toast.error(res.data.message);
             } else {
             console.log(res); // Imprime la respuesta completa para ver su estructura
-            alert('Venta agregada correctamente');
+            toast.success('Venta agregada correctamente');
             }
         })
-        .catch(err => {
-            console.log(err); // Imprime los errores en la consola para depuración
-            alert('Error al procesar la solicitud');
+        .catch(() => {
+             // Imprime los errores en la consola para depuración
+            toast.error('Error al procesar la solicitud');
         });
     }
 

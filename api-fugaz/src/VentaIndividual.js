@@ -1,61 +1,195 @@
-import React  from 'react'
-import axios from 'axios'
-import {Link, useNavigate} from 'react-router-dom'
-function VentaIndividual({venta}) {
+import React from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-    const navegar = useNavigate()
+const Container = styled.div`
+  margin-top: 5rem;
+`;
 
-    //funcion para eliminar usuario
-    function borrarventa(idsale){
-        axios.post('/api/venta/borrarventa', {idsale: idsale}).then(res => {
-            console.log(res.data[0])
-            alert(res.data)
-            navegar(0)
-        }).catch(err => {
-            console.log(err)
-        } )
-    }
+const StyledCard = styled.div`
+  width: 100%;
+  margin: 0 auto;
+`;
 
-    return(
-        <div className="conteiner">
-            <div className="row">
+const CardHeader = styled.div`
+  background-color: #007bff;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+`;
 
-            <div className="col-sm-6 offset-3">
-                <ul className="list-group">
-                    <li className="list-group-item">{venta.idsale}</li>
-                    <li className="list-group-item">{venta.shipping_cost}</li>
-                    <li className="list-group-item">{venta.total_sale}</li>
-                    <li className="list-group-item">{venta.document}</li>
-                    <li className="list-group-item">{venta.address}</li>
-                    <li className="list-group-item">{venta.city}</li>
-                    <li className="list-group-item">{venta.phone}</li>
-                    <li className="list-group-item">{venta.order_status}</li>
-                    <li className="list-group-item">{venta.Method_payment}</li>
-                    <li className="list-group-item">{venta.data_order}</li>
-                    <li className="list-group-item">{venta.deliver_data}</li>
-                    <li className="list-group-item">{venta.order_cost}</li>
-                    <li className="list-group-item">{venta.amount}</li>
-                    <li className="list-group-item">{venta.unit_price}</li>
-                    <li className="list-group-item">{venta.sobtotal}</li>
-                    <li className="list-group-item">{venta.name}</li>
-                    <li className="list-group-item">{venta.size}</li>
-                    <li className="list-group-item">{venta.color}</li>
-                    <li className="list-group-item">{venta.photo}</li>
-                    <li className="list-group-item">{venta.sale_price}</li>
-                </ul>
+const CardBody = styled.div`
+  padding: 1rem;
+`;
 
-                <Link to={`/editarventa/${venta.idsale}`}><li className="btn btn-sucess">Editar</li></Link>
-                &nbsp; 
-                <button className="btn btn-danger" onClick={()=>{borrarventa(venta.idsale)}}>Eliminar</button>
-                <hr className="mt-4"></hr>
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+`;
 
-            </div>
+const TableRow = styled.tr`
+  &:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+`;
 
+const TableHeader = styled.th`
+  text-align: left;
+  padding: 0.5rem;
+`;
 
+const TableCell = styled.td`
+  padding: 0.5rem;
+`;
 
-            </div>
+const CardFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+`;
 
+const Button = styled.button`
+  &.btn-success {
+    background-color: #28a745;
+    color: #fff;
+  }
+
+  &.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+  }
+`;
+
+function VentaIndividual({ venta }) {
+  const navigate = useNavigate();
+
+  // Función para eliminar venta
+  function borrarVenta(idsale) {
+    axios
+      .post('/api/venta/borrarventa', { idsale: idsale })
+      .then((res) => {
+        console.log(res.data[0]);
+        alert(res.data);
+        navigate(0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  return (
+    <Container>
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <StyledCard>
+            <CardHeader>
+              <h2>Detalles de la Venta</h2>
+            </CardHeader>
+            <CardBody>
+              <Table className="table table-bordered">
+                <tbody>
+                  <TableRow>
+                    <TableHeader>ID Venta</TableHeader>
+                    <TableCell>{venta.idsale}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Costo de Envío</TableHeader>
+                    <TableCell>{venta.shipping_cost}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Total de la Venta</TableHeader>
+                    <TableCell>{venta.total_sale}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Documento</TableHeader>
+                    <TableCell>{venta.document}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Dirección</TableHeader>
+                    <TableCell>{venta.address}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Ciudad</TableHeader>
+                    <TableCell>{venta.city}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Teléfono</TableHeader>
+                    <TableCell>{venta.phone}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Estado de la Orden</TableHeader>
+                    <TableCell>{venta.order_status}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Método de Pago</TableHeader>
+                    <TableCell>{venta.Method_payment}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Fecha de la Orden</TableHeader>
+                    <TableCell>{venta.data_order}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Fecha de Entrega</TableHeader>
+                    <TableCell>{venta.deliver_data}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Costo de la Orden</TableHeader>
+                    <TableCell>{venta.order_cost}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Cantidad</TableHeader>
+                    <TableCell>{venta.amount}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Precio Unitario</TableHeader>
+                    <TableCell>{venta.unit_price}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Subtotal</TableHeader>
+                    <TableCell>{venta.subtotal}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Nombre</TableHeader>
+                    <TableCell>{venta.name}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Tamaño</TableHeader>
+                    <TableCell>{venta.size}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Color</TableHeader>
+                    <TableCell>{venta.color}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Foto</TableHeader>
+                    <TableCell>{venta.photo}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeader>Precio de Venta</TableHeader>
+                    <TableCell>{venta.sale_price}</TableCell>
+                  </TableRow>
+                </tbody>
+              </Table>
+            </CardBody>
+            <CardFooter>
+              <Link to={`/editarventa/${venta.idsale}`} className="btn btn-success">
+                Editar
+              </Link>
+              <Button
+                className="btn btn-danger"
+                onClick={() => {
+                  borrarVenta(venta.idsale);
+                }}
+              >
+                Eliminar
+              </Button>
+            </CardFooter>
+          </StyledCard>
         </div>
-    )
+      </div>
+    </Container>
+  );
 }
 export default VentaIndividual
