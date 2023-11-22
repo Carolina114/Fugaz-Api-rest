@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -74,11 +76,11 @@ function VentaIndividual({ venta }) {
       .post('/api/venta/borrarventa', { idsale: idsale })
       .then((res) => {
         console.log(res.data[0]);
-        alert(res.data);
+        toast.success(res.data);
         navigate(0);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err);
       });
   }
   function descargarArchivos() {
@@ -219,6 +221,7 @@ function VentaIndividual({ venta }) {
               >
                 Eliminar
               </Button>
+              <ToastContainer position='bottom-right' autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
             </CardFooter>
           </StyledCard>
         </div>

@@ -23,7 +23,6 @@ function ListaUsuarios() {
         setIsSearching(true);
     };
 
-
           const filteredUsuarios = datausuarios.filter((usuario) => {
             const nombreRol = usuario.name_rol.toLowerCase();
             const nombreUsuario = usuario.name_user.toLowerCase();
@@ -45,9 +44,10 @@ function ListaUsuarios() {
     } )
 
     return(
+
         <div>
             <h2>Lista de Usuarios</h2>
-            <BarraBusqueda onBuscar={handleBusqueda} />
+            <BarraBusqueda className='search' onBuscar={handleBusqueda}/>
             <br/>
             <button className="btn btn-info"
             onClick= { ()=>{window.location='agregarusuario'} } 

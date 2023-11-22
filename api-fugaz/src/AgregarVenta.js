@@ -177,8 +177,9 @@ function AgregarVenta() {
                         <label htmlFor='sale_price' className='form-label'>Precio de venta</label>
                         <input type='number' className='form-control' value={sale_price} onChange={(e) => { setSaleprice(e.target.value) }}></input>
                     </div>
+                    <button onClick={agregarVenta} className="btn btn-success">Guardar venta</button>
+                    <ToastContainer position='bottom-right' autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
                 </div>
-                    <button onClick={agregarVenta} className="btn btn-success">Guardar venta</button> 
             </div>
         </div>
     )

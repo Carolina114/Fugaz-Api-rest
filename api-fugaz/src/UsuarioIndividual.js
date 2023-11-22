@@ -7,6 +7,8 @@ import jsPDF from 'jspdf';
 //import { Document, Page, pdfjs } from 'react-pdf';
 import * as XLSX from 'xlsx';
 //import * as XLSX from 'xlsx-style';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -83,11 +85,11 @@ function UsuarioIndividual({ usuario }) {
       .post('/api/usuario/borrarusuario', { iduser })
       .then((res) => {
         console.log(res.data[0]);
-        alert(res.data);
+        toast.success(res.data);
         navigate(0);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err);
       });
   }
 
@@ -191,6 +193,7 @@ function UsuarioIndividual({ usuario }) {
               {/*<Button className="btn btn-secondary" onClick={descargarXls}>
                 Descargar Excel
               </Button>*/}
+              <ToastContainer position='bottom-right' autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
             </CardFooter>
           </StyledCard>
         </div>
