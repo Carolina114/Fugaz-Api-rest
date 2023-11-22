@@ -1,36 +1,57 @@
 import React, { useEffect, useState }  from 'react'
 import CompraIndividual from './CompraIndividual'
+import BarraBusqueda from './BarraBusqueda';
 import axios from 'axios'
 function ListaCompras() {
-    const[datacompras, setdatacompra]=useState([])
+    const [dataCompras, setDataCompras] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [isSearching, setIsSearching] = useState(false);
 
     useEffect(() =>{
         axios.get('/api/compra/obtenercompras'). then(res => {
             console.log(res)
-            setdatacompra(res.data)
+            setDataCompras(res.data)
         }).catch(err =>{
             console.log(err)
         })
-    } )
+    });
+
+    const handleBusqueda = (busqueda) => {
+    setSearchTerm(busqueda.toLowerCase());
+    setIsSearching(true);
+      };
+
+    const filteredCompras = dataCompras.filter((compra) => {
+        const nombreInsumo = compra.name_input.toLowerCase();
+        const estadoInsumo = compra.status_input.toLowerCase();
+        return (
+          nombreInsumo.includes(searchTerm) ||
+          estadoInsumo.includes(searchTerm)
+        );
+      });
+
+
 
     //mapeo de la lista
-    const listacompras = datacompras.map(compra =>{
-        return(
-            <div>
-                <CompraIndividual compra={compra}/>
+      const listacompras = (isSearching ? filteredCompras : dataCompras).map(compra => {
+        return (
+            <div key={compra.idbuy}>
+              <CompraIndividual compra={compra} />
             </div>
-        )
-    } )
+          );
+        });
 
     return(
         <div>
             <h2>Lista de Compras</h2>
+            <BarraBusqueda onBuscar={handleBusqueda} />
+            <br/>
             <button className="btn btn-info"
             onClick= { ()=>{window.location='agregarcompra'} } 
             >
                 Agregar Compra
             </button>
-            {listacompras}
+            {listacompras.length ? listacompras : <p>No se encontraron resultados</p>}
         </div>
     )
 }

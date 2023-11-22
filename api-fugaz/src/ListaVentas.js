@@ -1,8 +1,11 @@
 import React, { useEffect, useState }  from 'react'
 import VentaIndividual from './VentaIndividual'
+import BarraBusqueda from './BarraBusqueda';
 import axios from 'axios'
 function ListaVentas() {
     const[dataventas, setdataventa]=useState([])
+    const [searchTerm, setSearchTerm] = useState('');
+    const [isSearching, setIsSearching] = useState(false);
 
     useEffect(() =>{
         axios.get('/api/venta/obtenerventas'). then(res => {
@@ -11,26 +14,53 @@ function ListaVentas() {
         }).catch(err =>{
             console.log(err)
         })
-    } )
+    } );
+
+    const handleBusqueda = (busqueda) => {
+        setSearchTerm(busqueda.toLowerCase());
+        setIsSearching(true);
+    };
+
+    const filteredVentas = dataventas.filter((venta) => {
+        const nombreVenta = venta.name.toLowerCase();
+        const ciudadVenta = venta.city.toLowerCase();
+        const fechaPedido = venta.date_order.toLowerCase();
+        const fechaEntrega = venta.deliver_date.toLowerCase();
+        const metodoPago= venta.Method_payment.toLowerCase();
+        const document = venta.document.toLowerCase();
+        return (
+          nombreVenta.includes(searchTerm) ||
+          ciudadVenta.includes(searchTerm) ||
+          fechaPedido.includes(searchTerm) ||
+          fechaEntrega.includes(searchTerm) ||
+          metodoPago.includes(searchTerm) ||
+          document.includes(searchTerm) 
+        );
+    });
 
     //mapeo de la lista
-    const listaventas = dataventas.map(venta =>{
+    const listaventas = (isSearching ? filteredVentas : dataventas).map(venta =>{
         return(
-            <div>
+            <div key={venta.idbuy}>
                 <VentaIndividual venta={venta}/>
             </div>
         )
     } )
+    
+
 
     return(
         <div>
             <h2>Lista de ventas</h2>
+            <BarraBusqueda onBuscar={handleBusqueda} />
+            <br/>
             <button className="btn btn-info"
             onClick= { ()=>{window.location='agregarventa'} } 
             >
                 Agregar Venta
             </button>
-            {listaventas}
+            {listaventas.length ? listaventas : <p>No se encontraron resultados</p>}
+           
         </div>
     )
 }
