@@ -5,7 +5,7 @@ import styled from 'styled-components';
 //import { saveAs } from 'file-saver';
 import jsPDF from 'jspdf';
 //import { Document, Page, pdfjs } from 'react-pdf';
-//import * as XLSX from 'xlsx';
+import * as XLSX from 'xlsx';
 //import * as XLSX from 'xlsx-style';
 
 const Container = styled.div`
@@ -95,7 +95,6 @@ function UsuarioIndividual({ usuario }) {
     const pdf = new jsPDF();
     pdf.text(20, 20, 'Detalles del Usuario');
 
-    // Loop sobre las filas de la tabla y añadir al PDF
     document.querySelectorAll('#pdf-container tbody tr').forEach((row, index) => {
       const columns = row.querySelectorAll('td');
       const rowData = [];
@@ -106,6 +105,18 @@ function UsuarioIndividual({ usuario }) {
     });
 
     pdf.save('usuario.pdf');
+  }
+
+  function descargarXls(){
+    const ws = XLSX.utils.table_to_sheet(document.querySelector('#pdf-container table'));
+    const wb = XLSX.utils.book_new(
+      XLSX.utils.aoa_to_sheet([
+        ['Detalles del Usuario'],
+        ['ID', 'Rol', 'Estado del Rol', 'Permiso', 'Nombre de Usuario', 'Email', 'Contraseña', 'Estado del Usuario', 'Fecha de Registro'],
+      ])
+    );
+    XLSX.utils.book_append_sheet(wb, ws, 'usuarios');
+    XLSX.writeFile(wb, 'usuarios.xlsx');
   }
 
   return (
@@ -162,8 +173,11 @@ function UsuarioIndividual({ usuario }) {
               <Link to={`/editarusuario/${usuario.iduser}`} className="btn btn-success">
                 Editar
               </Link>
-              <Button className="btn btn-secondary" onClick={descargarArchivos}>
+              <Button className="btn btn-outline-danger" onClick={descargarArchivos}>
                 Descargar PDF
+              </Button>
+              <Button className="btn btn-outline-success" onClick={descargarXls}>
+                Descargar Excel
               </Button>
               <Button
                 className="btn btn-danger d-none"

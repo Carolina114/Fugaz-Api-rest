@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import jsPDF from 'jspdf';
+import * as XLSX from 'xlsx';
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -96,7 +97,16 @@ function VentaIndividual({ venta }) {
 
     pdf.save('venta.pdf');
   }
-
+  function descargarXls(){
+    const ws = XLSX.utils.table_to_sheet(document.querySelector('#pdf-container table'));
+    const wb = XLSX.utils.book_new(
+      XLSX.utils.aoa_to_sheet([
+        ['Detalles de la venta'],
+        ['ID Venta', 'Costo de Envío', 'Total de la Venta', 'Documento', 'Dirección', 'Ciudad', 'Teléfono', 'Estado de la Orden', 'Método de Pago', 'Fecha de la Orden', 'Fecha de Entrega', 'Costo de la Orden', 'Cantidad', 'Precio Unitario', 'Subtotal', 'Nombre', 'Tamaño', 'Color', 'Foto', 'Precio de Venta'],      ])
+    );
+    XLSX.utils.book_append_sheet(wb, ws, 'Ventas');
+    XLSX.writeFile(wb, 'ventas.xlsx');
+  }
   return (
     <Container>
       <div className="row justify-content-center">
@@ -197,6 +207,9 @@ function VentaIndividual({ venta }) {
               </Link>
               <Button className="btn btn-secondary" onClick={descargarArchivos}>
                 Descargar PDF
+              </Button>
+              <Button className="btn btn-outline-success" onClick={descargarXls}>
+                Descargar Excel
               </Button>
               <Button
                 className="btn btn-danger"
