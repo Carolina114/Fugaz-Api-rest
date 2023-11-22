@@ -4,6 +4,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import uniquid from 'uniquid';
 import App from './App';
+import { Form, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function AgregarUsuario() {
     //hooks
@@ -43,6 +45,12 @@ function AgregarUsuario() {
             });
     }
 
+    const permisosPorRol = {
+        Administrador: ['Ver informes', 'Modificar configuración', 'Acceso total'],
+        Cliente: ['Ver perfil', 'Realizar pedidos'],
+        Domiciliario: ['Entregar pedidos', 'Ver rutas de entrega'],
+    };
+
     return (
         <div className='container'>
             <div className='row'>
@@ -55,39 +63,42 @@ function AgregarUsuario() {
                         <label htmlFor='name_rol' className='form-label'>
                             Nombre del rol
                         </label>
-                        <input
-                            type='text'
-                            className='form-control'
+                        <select
+                            className='form-select'
                             value={name_rol}
-                            onChange={(e) => {
-                                setNamerol(e.target.value);
-                            }}
+                            onChange={(e) => setNamerol(e.target.value)}
+                        >
+                            <option value=''>Seleccionar Rol</option>
+                            <option value='Administrador'>Administrador</option>
+                            <option value='Cliente'>Cliente</option>
+                            <option value='Domiciliario'>Domiciliario</option>
+                        </select>
+                    </div>
+                    <Form.Group className='mb-3'>
+                        <Form.Label>Estado del rol:</Form.Label>
+                        <Form.Check
+                            type='switch'
+                            id='custom-switch'
+                            checked={state_rol}
+                            onChange={(e) => setStaterol(e.target.checked)}
                         />
-                    </div>
-                    <div className='mb-3'>
-                        <label htmlFor='state_rol' className='form-label'>
-                            Estado del rol:
-                            <input
-                                type='checkbox'
-                                className="form-check-input"
-                                checked={state_rol}
-                                onChange={(e) => setStaterol(e.target.checked)}
-                            />
-                        </label>
-                    </div>
-                    <div className='mb-3'>
-                        <label htmlFor='name_permission' className='form-label'>
-                            Nombre del permiso
-                        </label>
-                        <input
-                            type='text'
-                            className='form-control'
+                    </Form.Group>
+                    <Form.Group className='mb-3'>
+                        <Form.Label>Nombre del permiso</Form.Label>
+                        <Form.Control
+                            as='select'
                             value={name_permission}
-                            onChange={(e) => {
-                                setNameper(e.target.value);
-                            }}
-                        />
-                    </div>
+                            onChange={(e) => setNameper(e.target.value)}
+                        >
+                            <option value=''>Seleccionar Permiso</option>
+                            {name_rol &&
+                                permisosPorRol[name_rol].map((permiso, index) => (
+                                    <option key={index} value={permiso}>
+                                        {permiso}
+                                    </option>
+                                ))}
+                        </Form.Control>
+                    </Form.Group>
                     <div className='mb-3'>
                         <label htmlFor='name_user' className='form-label'>
                             Nombre del Usuario
@@ -127,17 +138,15 @@ function AgregarUsuario() {
                             }}
                         />
                     </div>
-                    <div className='mb-3'>
-                        <label htmlFor='state_user' className='form-label'>
-                            Estado del Usuario:
-                            <input
-                                type='checkbox'
-                                className="form-check-input"
-                                checked={state_user}
-                                onChange={(e) => setStateuser(e.target.checked)}
-                            />
-                        </label>
-                    </div>
+                    <Form.Group className='mb-3'>
+                        <Form.Label>Estado del Usuario:</Form.Label>
+                        <Form.Check
+                            type='switch'
+                            id='custom-switch'
+                            checked={state_user}
+                            onChange={(e) => setStateuser(e.target.checked)}
+                        />
+                    </Form.Group>
                     <div className='mb-3'>
                         <label htmlFor='date_register' className='form-label'>
                             Fecha de registro

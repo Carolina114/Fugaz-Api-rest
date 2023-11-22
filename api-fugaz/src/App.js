@@ -52,7 +52,13 @@ function App() {
           <Route path='/editarventa/:idsale' element={<EditarVenta />} exact ></Route>
         </Routes>
       </BrowserRouter>
+      <footer className="footer mt-2 py-3 bg-dark text-white">
+        <div className="container text-center">
+          <span>&copy; 2023 Fugaz Retro</span>
+        </div>
+      </footer>
     </div>
+
   );
 }
 
