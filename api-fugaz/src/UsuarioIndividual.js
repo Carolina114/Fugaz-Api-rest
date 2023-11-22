@@ -2,9 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { saveAs } from 'file-saver';
-import { Document, Page, pdfjs } from 'react-pdf';
-import * as XLSX from 'xlsx';
+//import { saveAs } from 'file-saver';
+import jsPDF from 'jspdf';
+//import { Document, Page, pdfjs } from 'react-pdf';
+//import * as XLSX from 'xlsx';
 //import * as XLSX from 'xlsx-style';
 
 const Container = styled.div`
@@ -91,54 +92,24 @@ function UsuarioIndividual({ usuario }) {
   }
 
   function descargarArchivos() {
-    // Generar PDF
-    const pdfBlob = generatePDF();
-    saveAs(pdfBlob, 'usuario.pdf');
+    const pdf = new jsPDF();
+    pdf.text(20, 20, 'Detalles del Usuario');
 
-    // Generar XLS
-    //const xlsBlob = generateXLS();
-    //saveAs(xlsBlob, 'usuario.xls');
+    // Loop sobre las filas de la tabla y añadir al PDF
+    document.querySelectorAll('#pdf-container tbody tr').forEach((row, index) => {
+      const columns = row.querySelectorAll('td');
+      const rowData = [];
+      columns.forEach((column) => {
+        rowData.push(column.innerText);
+      });
+      pdf.text(5, 15 + index * 5, rowData.join(', '));
+    });
+
+    pdf.save('usuario.pdf');
   }
-  /*function descargarXls(){
-    const xlsBlob = generateXLS();
-    saveAs(xlsBlob, 'usuario.xls');
-  }*/
-
-  function generatePDF() {
-    const element = document.getElementById('pdf-container');
-    const pdfBlob = pdfjs.GlobalWorkerOptions.workerSrc
-      ? element.toBlob()
-      : new Blob([element.outerHTML], { type: 'application/pdf' });
-    return pdfBlob;
-  }
-
-  /*function generateXLS() {
-    const data = [['ID', 'Rol', 'Estado del Rol', 'Permiso', 'Nombre de Usuario', 'Email', 'Contraseña', 'Estado del Usuario', 'Fecha de Registro']];
-    const row = [
-      usuario.iduser,
-      usuario.name_rol,
-      usuario.state_rol,
-      usuario.name_permission,
-      usuario.name_user,
-      usuario.email,
-      usuario.passaword,
-      usuario.state_user,
-      usuario.date_register,
-    ];
-    data.push(row);
-  
-    const ws = XLSX.utils.aoa_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Usuario');
-  
-    const xlsBlob = XLSX.write(wb, { bookType: 'xls', type: 'blob', mimeType: 'application/octet-stream' });
-    return xlsBlob;
-  }*/
-  
 
   return (
     <Container>
-
       <div className="row justify-content-center">
         <div className="col-md-8">
           <StyledCard>
@@ -152,7 +123,7 @@ function UsuarioIndividual({ usuario }) {
                     <TableHeader>ID</TableHeader>
                     <TableCell>{usuario.iduser}</TableCell>
                   </TableRow>
-                  <TableRow className="bg-danger">
+                  <TableRow>
                     <TableHeader>Rol</TableHeader>
                     <TableCell>{usuario.name_rol}</TableCell>
                   </TableRow>
@@ -191,6 +162,9 @@ function UsuarioIndividual({ usuario }) {
               <Link to={`/editarusuario/${usuario.iduser}`} className="btn btn-success">
                 Editar
               </Link>
+              <Button className="btn btn-secondary" onClick={descargarArchivos}>
+                Descargar PDF
+              </Button>
               <Button
                 className="btn btn-danger d-none"
                 onClick={() => {
@@ -199,9 +173,7 @@ function UsuarioIndividual({ usuario }) {
               >
                 Eliminar
               </Button>
-              <Button className="btn btn-secondary" onClick={descargarArchivos}>
-                Descargar PDF y Excel
-              </Button>
+              
               {/*<Button className="btn btn-secondary" onClick={descargarXls}>
                 Descargar Excel
               </Button>*/}

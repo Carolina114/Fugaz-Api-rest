@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import jsPDF from 'jspdf';
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -79,10 +80,22 @@ function CompraIndividual({ compra }) {
           console.log(err);
         });
     }
+      function descargarArchivos() {
+    const pdf = new jsPDF();
+    pdf.text(20, 20, 'Detalles de la compra');
 
+    // Loop sobre las filas de la tabla y añadir al PDF
+    document.querySelectorAll('#pdf-container tbody tr').forEach((row, index) => {
+      const columns = row.querySelectorAll('td');
+      const rowData = [];
+      columns.forEach((column) => {
+        rowData.push(column.innerText);
+      });
+      pdf.text(5, 15 + index * 5, rowData.join(', '));
+    });
 
-
-
+    pdf.save('compra.pdf');
+  }
     return (
         <Container>
           <div className="row justify-content-center">
@@ -91,7 +104,7 @@ function CompraIndividual({ compra }) {
                 <CardHeader>
                   <h2>Detalles de la Compra</h2>
                 </CardHeader>
-                <CardBody>
+                <CardBody id='pdf-container'>
                   <Table className="table table-bordered">
                     <tbody>
                       <TableRow>
@@ -177,6 +190,9 @@ function CompraIndividual({ compra }) {
                   <Link to={`/editarcompra/${compra.idbuy}`} className="btn btn-success">
                     Editar
                   </Link>
+                  <Button className="btn btn-secondary" onClick={descargarArchivos}>
+                Descargar PDF
+              </Button>
                   <Button
                     className="btn btn-danger"
                     onClick={() => {
