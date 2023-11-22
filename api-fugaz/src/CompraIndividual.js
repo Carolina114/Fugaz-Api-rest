@@ -146,28 +146,16 @@ function CompraIndividual({ compra }) {
                         <TableCell>{compra.buy_date}</TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableHeader>Total de la Compra</TableHeader>
-                        <TableCell>{compra.price_total}</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableHeader>Método de Pago</TableHeader>
-                        <TableCell>{compra.payment_methods}</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableHeader>Cantidad</TableHeader>
-                        <TableCell>{compra.quantity}</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableHeader>Subtotal</TableHeader>
-                        <TableCell>{compra.subtotal}</TableCell>
-                      </TableRow>
-                      <TableRow>
                         <TableHeader>Categoría</TableHeader>
                         <TableCell>{compra.name_category}</TableCell>
                       </TableRow>
                       <TableRow>
                         <TableHeader>Nombre del Insumo</TableHeader>
                         <TableCell>{compra.name_input}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Cantidad</TableHeader>
+                        <TableCell>{compra.quantity}</TableCell>
                       </TableRow>
                       <TableRow>
                         <TableHeader>Stock</TableHeader>
@@ -177,7 +165,7 @@ function CompraIndividual({ compra }) {
                         <TableHeader>Precio Unitario</TableHeader>
                         <TableCell>{compra.unit_price}</TableCell>
                       </TableRow>
-                      <TableRow>
+                       <TableRow>
                         <TableHeader>Estado del Insumo</TableHeader>
                         <TableCell>{compra.status_input}</TableCell>
                       </TableRow>
@@ -210,8 +198,20 @@ function CompraIndividual({ compra }) {
                         <TableCell>{compra.address}</TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableHeader>Estado del Insumo en Proceso</TableHeader>
+                        <TableHeader>Estado del Proveedor</TableHeader>
                         <TableCell>{compra.statuspro}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Método de Pago</TableHeader>
+                        <TableCell>{compra.payment_methods}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Subtotal</TableHeader>
+                        <TableCell>{compra.subtotal}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Total de la Compra</TableHeader>
+                        <TableCell>{compra.price_total}</TableCell>
                       </TableRow>
                     </tbody>
                   </Table>
