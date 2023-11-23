@@ -18,13 +18,14 @@ function AgregarUsuario() {
     const [state_user, setStateuser] = useState(false);
     const [date_register, setDater] = useState('');
 
+
     function agregarUsuario() {
         const Usuario = {
-            name_rol: name_rol,
+            name_rol: name_rol.trim(), 
             state_rol: state_rol,
-            name_permission: name_permission,
-            name_user: name_user,
-            email: email,
+            name_permission: name_permission.trim(),
+            name_user: name_user.trim(), 
+            email: email.trim(),
             password: password,
             state_user: state_user,
             date_register: date_register,
