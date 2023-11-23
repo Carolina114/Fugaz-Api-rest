@@ -2,6 +2,7 @@ import React, { useEffect, useState }  from 'react'
 import VentaIndividual from './VentaIndividual'
 import BarraBusqueda from './BarraBusqueda';
 import axios from 'axios'
+import './style.css';
 
 function ListaVentas() {
     const[dataventas, setdataventa]=useState([])
@@ -53,9 +54,11 @@ function ListaVentas() {
     return(
         <div>
             <h2>Lista de ventas</h2>
-            <BarraBusqueda onBuscar={handleBusqueda} />
+            <div className="search">
+        <BarraBusqueda onBuscar={handleBusqueda} />
+      </div>
             <br/>
-            <button className="btn btn-info"
+            <button className="agr btn btn-outline-light"
             onClick= { ()=>{window.location='agregarventa'} } 
             >
                 Agregar Venta

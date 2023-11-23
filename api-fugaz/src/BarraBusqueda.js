@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './style.css';
 
 function BarraBusqueda({ onBuscar }) {
   const [busqueda, setBusqueda] = useState('');
@@ -9,13 +10,21 @@ function BarraBusqueda({ onBuscar }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onBuscar(busqueda); // Aquí pasas la búsqueda al componente padre
+    onBuscar(busqueda);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={busqueda} onChange={handleChange} placeholder="Buscar..." />
-      <button type="submit">Buscar</button>
+    <form className="form-container" onSubmit={handleSubmit}>
+      <input
+        className="input-busqueda"
+        type="text"
+        value={busqueda}
+        onChange={handleChange}
+        placeholder="Buscar..."
+      />
+      <button className="btn btn-outline-info" type="submit">
+        Buscar
+      </button>
     </form>
   );
 }

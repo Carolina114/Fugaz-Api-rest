@@ -2,6 +2,8 @@ import React, { useEffect, useState }  from 'react'
 import CompraIndividual from './CompraIndividual'
 import BarraBusqueda from './BarraBusqueda';
 import axios from 'axios'
+import './style.css';
+
 function ListaCompras() {
     const [dataCompras, setDataCompras] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -44,9 +46,11 @@ function ListaCompras() {
     return(
         <div>
             <h2>Lista de Compras</h2>
-            <BarraBusqueda onBuscar={handleBusqueda} />
+            <div className="search">
+        <BarraBusqueda onBuscar={handleBusqueda} />
+      </div>
             <br/>
-            <button className="btn btn-info"
+            <button className="agr btn btn-outline-light"
             onClick= { ()=>{window.location='agregarcompra'} } 
             >
                 Agregar Compra
