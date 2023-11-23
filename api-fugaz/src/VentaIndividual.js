@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './style.css';
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -110,10 +111,11 @@ function VentaIndividual({ venta }) {
     XLSX.writeFile(wb, 'ventas.xlsx');
   }
   return (
-    <Container>
+    <Container className='cn'>
       <div className="row justify-content-center">
         <div className="col-md-8">
           <StyledCard>
+          <div className='cn'>
             <CardHeader>
               <h2>Detalles de la Venta</h2>
             </CardHeader>
@@ -200,29 +202,37 @@ function VentaIndividual({ venta }) {
                     <TableHeader>Precio de Venta</TableHeader>
                     <TableCell>{venta.sale_price}</TableCell>
                   </TableRow>
+                  <TableRow>
+                    <TableHeader>Acciones</TableHeader>
+                    <TableCell>
+                      <Link to={`/editarventa/${venta.idsale}`} className="btn btn-success">
+                        Editar
+                      </Link>
+                    </TableCell>
+                    <TableCell>
+                      <Button className="btn btn-outline-danger" onClick={descargarArchivos}>Descargar PDF</Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button className="btn btn-outline-success" onClick={descargarXls}>Descargar Excel</Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        className="btn btn-danger"
+                        onClick={() => {
+                          borrarVenta(venta.idsale);
+                        }}
+                      >
+                        Eliminar
+                      </Button>
+                    </TableCell>
+                  </TableRow>
                 </tbody>
               </Table>
             </CardBody>
             <CardFooter>
-              <Link to={`/editarventa/${venta.idsale}`} className="btn btn-success">
-                Editar
-              </Link>
-              <Button className="btn btn-secondary" onClick={descargarArchivos}>
-                Descargar PDF
-              </Button>
-              <Button className="btn btn-outline-success" onClick={descargarXls}>
-                Descargar Excel
-              </Button>
-              <Button
-                className="btn btn-danger"
-                onClick={() => {
-                  borrarVenta(venta.idsale);
-                }}
-              >
-                Eliminar
-              </Button>
               <ToastContainer position='bottom-right' autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
             </CardFooter>
+            </div>
           </StyledCard>
         </div>
       </div>

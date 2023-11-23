@@ -6,6 +6,8 @@ import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './style.css';
+
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -19,7 +21,7 @@ const StyledCard = styled.div`
 const CardHeader = styled.div`
   background-color: #007bff;
   color: #fff;
-  padding: 1rem;
+  padding: 1px;
   text-align: center;
 `;
 
@@ -129,10 +131,11 @@ function CompraIndividual({ compra }) {
     XLSX.writeFile(wb, 'compra.xlsx');
   }
     return (
-        <Container>
+        <Container className='cn'>
           <div className="row justify-content-center">
             <div className="col-md-8">
               <StyledCard>
+              <div className='cn'>
                 <CardHeader>
                   <h2>Detalles de la Compra</h2>
                 </CardHeader>
@@ -215,29 +218,37 @@ function CompraIndividual({ compra }) {
                         <TableHeader>Total de la Compra</TableHeader>
                         <TableCell>{compra.price_total}</TableCell>
                       </TableRow>
+                      <TableRow>
+                        <TableHeader>Acciones</TableHeader>
+                        <TableCell>
+                          <Link to={`/editarcompra/${compra.idbuy}`} className="btn btn-success">
+                            Editar
+                          </Link>
+                        </TableCell>
+                        <TableCell>
+                          <Button className="btn btn-outline-danger" onClick={descargarArchivos}>Descargar PDF</Button>
+                        </TableCell>
+                        <TableCell>
+                          <Button className="btn btn-outline-success" onClick={descargarXls}>Descargar Excel</Button>
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            className="btn btn-danger"
+                            onClick={() => {
+                              borrarCompra(compra.idbuy);
+                            }}
+                          >
+                            Eliminar
+                          </Button>
+                        </TableCell>
+                      </TableRow>
                     </tbody>
                   </Table>
                 </CardBody>
                 <CardFooter>
-                  <Link to={`/editarcompra/${compra.idbuy}`} className="btn btn-success">
-                    Editar
-                  </Link>
-                  <Button className="btn btn-secondary" onClick={descargarArchivos}>
-                Descargar PDF
-              </Button>
-              <Button className="btn btn-outline-success" onClick={descargarXls}>
-                Descargar Excel
-              </Button>
-                  <Button
-                    className="btn btn-danger"
-                    onClick={() => {
-                      borrarCompra(compra.idbuy);
-                    }}
-                  >
-                    Eliminar
-                  </Button>
                   <ToastContainer position='bottom-right' autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
                 </CardFooter>
+              </div>
               </StyledCard>
             </div>
           </div>

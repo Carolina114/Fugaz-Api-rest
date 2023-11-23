@@ -60,28 +60,7 @@ function ListaUsuarios() {
         onClick={() => { window.location = 'agregarusuario'; }}
       >
         Agregar Usuario
-      </button>
-      <div>
-        <table className='table table-bordered'>
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Rol</th>
-            <th scope="col">Estado del Rol</th>
-            <th scope="col">Permiso</th>
-            <th scope="col">Nombre de Usuario</th>
-            <th scope="col">Email</th>
-            <th scope="col">Contraseña</th>
-            <th scope="col">Estado del Usuario</th>
-            <th scope="col">Fecha de Registro</th>
-            <th scope="col">Editar</th>
-            <th scope="col">PDF</th>
-            <th scope="col">EXCEL</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        </table>
-      </div>      
+      </button>   
       <div className="usuarios-lista">
         {listausuarios.length ? listausuarios : <p>No se encontraron resultados</p>}
       </div>

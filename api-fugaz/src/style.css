@@ -7,7 +7,7 @@
   }
 .agr{
   margin-top: -155px;
-  margin-left: 450px;
+  margin-left: 350px;
   position: relative;
 }
 .form-container {
@@ -37,6 +37,6 @@
     background-color: #0056b3; /* Cambia el color al pasar el ratón sobre el botón */
     border-color: #0056b3;
   }
-.tb{
-  margin-top: -70px;
+.cn{
+  margin-top: -100px;
 }

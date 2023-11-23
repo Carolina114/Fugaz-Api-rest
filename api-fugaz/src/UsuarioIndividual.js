@@ -12,6 +12,43 @@ const Container = styled.div`
   margin-top: 5rem;
 `;
 
+const StyledCard = styled.div`
+  width: 100%;
+  margin: 0 auto;
+`;
+
+const CardHeader = styled.div`
+  background-color: #007bff;
+  color: #fff;
+  padding: 1px;
+  text-align: center;
+`;
+
+const CardBody = styled.div`
+  padding: 1rem;
+`;
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+`;
+
+const TableRow = styled.tr`
+  &:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+`;
+
+const TableHeader = styled.th`
+  text-align: left;
+  padding: 0.5rem;
+`;
+
+const TableCell = styled.td`
+  padding: 0.5rem;
+`;
+
 const CardFooter = styled.div`
   display: flex;
   align-items: center;
@@ -81,51 +118,88 @@ function UsuarioIndividual({ usuario }) {
   }
 
   return (
-    <Container>
-      <div>
-              <div className="tb">
-              <table className='table table-bordered' style={{ marginBottom: '-40px' }}>
-                <tbody>
-                  <tr>
-                    <td>{usuario.iduser}</td>
-                    <td>{usuario.name_rol}</td>
-                    <td>{usuario.state_rol}</td>
-                    <td>{usuario.name_permission}</td>
-                    <td>{usuario.name_user}</td>
-                    <td>{usuario.email}</td>
-                    <td>{usuario.passaword}</td>
-                    <td>{usuario.state_user}</td>
-                    <td>{usuario.date_register}</td>
-                    <td>
-                      <Link to={`/editarusuario/${usuario.iduser}`} className="btn btn-success">Editar</Link>
-                      </td>
-                      <td>
-                      <Button className="btn btn-outline-danger" onClick={descargarArchivos}>Descargar PDF</Button>
-                      </td>
-                      <td>
-                      <Button className="btn btn-outline-success" onClick={descargarXls}>Descargar Excel</Button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              </div>
-
-            <CardFooter>
-
-              
-
-              <Button
-                className="btn btn-danger d-none"
-                onClick={() => {
-                  borrarUsuario(usuario.iduser);
-                }}
-              >
-                Eliminar
-              </Button>
-              <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-            </CardFooter>
-        </div>
-    </Container>
+    <Container className='pdf-container'>
+          <div className="row justify-content-center">
+            <div className="col-md-8">
+              <StyledCard>
+              <div className='cn'>
+                <CardHeader>
+                  <h2>Detalles del Usuario</h2>
+                </CardHeader>
+                <CardBody>
+                  <Table className="table table-bordered">
+                    <tbody>
+                      <TableRow>
+                        <TableHeader>ID</TableHeader>
+                        <TableCell>{usuario.iduser}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Rol</TableHeader>
+                        <TableCell>{usuario.name_rol}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Estado del Rol</TableHeader>
+                        <TableCell>{usuario.state_rol}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Permiso</TableHeader>
+                        <TableCell>{usuario.name_permission}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Nombre de Usuario</TableHeader>
+                        <TableCell>{usuario.name_user}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Email</TableHeader>
+                        <TableCell>{usuario.email}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Contraseña</TableHeader>
+                        <TableCell>{usuario.passaword}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Estado del Usuario</TableHeader>
+                        <TableCell>{usuario.state_user}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Fecha de Registro</TableHeader>
+                        <TableCell>{usuario.date_register}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeader>Acciones</TableHeader>
+                        <TableCell>
+                          <Link to={`/editarusuario/${usuario.iduser}`} className="btn btn-success">
+                            Editar
+                          </Link>
+                        </TableCell>
+                        <TableCell>
+                          <Button className="btn btn-outline-danger" onClick={descargarArchivos}>Descargar PDF</Button>
+                        </TableCell>
+                        <TableCell>
+                          <Button className="btn btn-outline-success" onClick={descargarXls}>Descargar Excel</Button>
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            className="btn btn-danger d-none"
+                            onClick={() => {
+                              borrarUsuario(usuario.iduser);
+                            }}
+                          >
+                            Eliminar
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    </tbody>
+                  </Table>
+                </CardBody>
+                <CardFooter>
+                  <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+                </CardFooter>
+                </div>
+              </StyledCard>
+            </div>
+          </div>
+        </Container>
   );
 }
 

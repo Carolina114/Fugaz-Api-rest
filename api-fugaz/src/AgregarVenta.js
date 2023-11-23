@@ -3,6 +3,52 @@ import axios from 'axios';
 import uniquid from 'uniquid';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Form, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const ciudadesColombia = [
+    'Bogotá',
+'Medellín',
+'Cali',
+'Barranquilla',
+'Cartagena',
+'Cúcuta',
+'Bucaramanga',
+'Ibagué',
+'Santa Marta',
+'Valledupar',
+'Villavicencio',
+'Pereira',
+'Manizales',
+'Pasto',
+'Montería',
+'Neiva',
+'Popayán',
+'Armenia',
+'Riohacha',
+'Tunja',
+'Quibdó',
+'Florencia',
+'Mocoa',
+'San Andrés',
+'Sincelejo',
+'Mitú',
+'Puerto Carreño',
+  ];
+const metodoPago = [
+    'Bancolombia',
+    'Daviplata',
+    'Nequi',
+  ];
+const tallas = [
+    'XS',
+    'S',
+    'M',
+    'L',
+    'XL',
+    'XXL',
+  ];
+
 function AgregarVenta() {
     //hooks
 
@@ -25,6 +71,9 @@ function AgregarVenta() {
     const [color, setColor]=useState('')
     const [photo, setPhoto]=useState('')
     const [sale_price, setSaleprice]=useState('')
+    const [ciudadSeleccionada, setCiudadSeleccionada] = useState('');
+    const [metododePago, setmetododePago] = useState('');
+    const [tallaSeleccionada, setTallaSeleccionada] = useState('');
     
    /* useEffect(() => {
         setStock(quantity); // Actualiza el stock con la cantidad ingresada
@@ -56,10 +105,10 @@ function AgregarVenta() {
             total_sale: total_sale,
             document: document,
             address: address,
-            city: city,
+            city: ciudadSeleccionada,
             phone: phone,
             order_status: order_status,
-            Method_payment: Method_payment,
+            Method_payment: metododePago,
             date_order: date_order,
             deliver_date: deliver_date,
             order_cost: order_cost,
@@ -67,7 +116,7 @@ function AgregarVenta() {
             unit_price: unit_price,
             subtotal: subtotal,
             name: name,
-            size: size,
+            size: tallaSeleccionada,
             color: color,
             photo: photo,
             sale_price: sale_price,
@@ -117,20 +166,43 @@ function AgregarVenta() {
                         <input type='text' className='form-control' value={address} onChange={(e) => { setAddress(e.target.value) }}></input>
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor='city' className='form-label'>Ciudad</label>
-                        <input type='text' className='form-control' value={city} onChange={(e) => { setCity(e.target.value) }}></input>
-                    </div>
+          <label htmlFor='city' className='form-label'>
+            Ciudad
+          </label>
+          <select
+            className='form-select'
+            value={ciudadSeleccionada}
+            onChange={(e) => setCiudadSeleccionada(e.target.value)}
+          >
+            <option value=''>Selecciona una ciudad</option>
+            {ciudadesColombia.map((ciudad) => (
+              <option key={ciudad} value={ciudad}>
+                {ciudad}
+              </option>
+            ))}
+          </select>
+        </div>
                     <div className='mb-3'>
                         <label htmlFor='phone' className='form-label'>Teléfono</label>
                         <input type='text' className='form-control' value={phone} onChange={(e) => { setPhone(e.target.value) }}></input>
                     </div>
-                    <div className='mb-3'>
-                        <label htmlFor='order_status' className='form-label'>Estado del Pedido</label>
-                        <input type='text' className='form-control' value={order_status} onChange={(e) => { setOrderstatus(e.target.value) }}></input>
-                    </div>
+                    <Form.Group className='mb-3'>
+                        <Form.Label>Estado del Pedido</Form.Label>
+                        <Form.Check type='switch' id='custom-switch' value={order_status} onChange={(e) => { setOrderstatus(e.target.value) }}/>
+                    </Form.Group>
                     <div className='mb-3'>
                         <label htmlFor='Method_payment' className='form-label'>Método de pago</label>
-                        <input type='text' className='form-control' value={Method_payment} onChange={(e) => { setMethodpayment(e.target.value) }}></input>
+                        <select 
+                        className='form-select' 
+                        value={metodoPago} 
+                        onChange={(e) => { setmetododePago(e.target.value) }}>
+                            <option value=''>Selecciona un método de pago</option>
+                            {metodoPago.map((metododePago) => (
+                                <option key={metododePago} value={metododePago}>
+                                    {metododePago}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className='mb-3'>
                         <label htmlFor='date_order' className='form-label'>Fecha del pedido</label>
@@ -163,7 +235,14 @@ function AgregarVenta() {
                     </div>
                     <div className='mb-3'>
                         <label htmlFor='size' className='form-label'>Talla</label>
-                        <input type='text' className='form-control' value={size} onChange={(e) => { setSize(e.target.value) }}></input>
+                        <select type='text' className='form-control' value={size} onChange={(e) => { setSize(e.target.value) }}>
+                            <option value=''>Selecciona una talla</option>
+                            {tallas.map((talla) => (
+                                <option key={talla} value={talla}>
+                                    {talla}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className='mb-3'>
                         <label htmlFor='color' className='form-label'>Color</label>
@@ -171,7 +250,7 @@ function AgregarVenta() {
                     </div>
                     <div className='mb-3'>
                         <label htmlFor='photo' className='form-label'>Foto</label>
-                        <input type='text' className='form-control' value={photo} onChange={(e) => { setPhoto(e.target.value) }}></input>
+                        <input type='file' accept="image/*" className='form-control' value={photo} onChange={(e) => { setPhoto(e.target.value) }}></input>
                     </div>
                     <div className='mb-3'>
                         <label htmlFor='sale_price' className='form-label'>Precio de venta</label>
