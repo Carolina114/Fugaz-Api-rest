@@ -3,37 +3,38 @@ import axios from 'axios';
 import uniquid from 'uniquid';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Form, Button } from 'react-bootstrap';
+//import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ciudadesColombia = [
     'Bogotá',
-'Medellín',
-'Cali',
-'Barranquilla',
-'Cartagena',
-'Cúcuta',
-'Bucaramanga',
-'Ibagué',
-'Santa Marta',
-'Valledupar',
-'Villavicencio',
-'Pereira',
-'Manizales',
-'Pasto',
-'Montería',
-'Neiva',
-'Popayán',
-'Armenia',
-'Riohacha',
-'Tunja',
-'Quibdó',
-'Florencia',
-'Mocoa',
-'San Andrés',
-'Sincelejo',
-'Mitú',
-'Puerto Carreño',
+    'Medellín',
+    'Cali',
+    'Barranquilla',
+    'Cartagena',
+    'Cúcuta',
+    'Bucaramanga',
+    'Ibagué',
+    'Santa Marta',
+    'Valledupar',
+    'Villavicencio',
+    'Pereira',
+    'Manizales',
+    'Pasto',
+    'Montería',
+    'Neiva',
+    'Popayán',
+    'Armenia',
+    'Riohacha',
+    'Tunja',
+    'Quibdó',
+    'Florencia',
+    'Mocoa',
+    'San Andrés',
+    'Sincelejo',
+    'Mitú',
+    'Leticia',
+    'Puerto Carreño',
   ];
 const metodoPago = [
     'Bancolombia',
@@ -48,6 +49,11 @@ const tallas = [
     'XL',
     'XXL',
   ];
+const estadopedido = [
+    'Pendiente',
+    'Enviado',
+    'Entregado',
+  ];
 
 function AgregarVenta() {
     //hooks
@@ -56,10 +62,10 @@ function AgregarVenta() {
     const [total_sale, setTotalsale]=useState('')
     const [document, setDocument]=useState('')
     const [address, setAddress]=useState('')
-    const [city, setCity]=useState('')
+    //const [city, setCity]=useState('')
     const [phone, setPhone]=useState('')
-    const [order_status, setOrderstatus]=useState('')
-    const [Method_payment, setMethodpayment]=useState('')
+    //const [order_status, setOrderstatus]=useState('')
+    //const [Method_payment, setMethodpayment]=useState('')
     const [date_order, setDateorder]=useState('')
     const [deliver_date, setDeliverdate]=useState('')
     const [order_cost, setOrdercost]=useState('')
@@ -67,38 +73,15 @@ function AgregarVenta() {
     const [unit_price, setUnitprice]=useState('')
     const [subtotal, setSubtotal]=useState('')
     const [name, setName]=useState('')
-    const [size, setSize]=useState('')
+    //const [size, setSize]=useState('')
     const [color, setColor]=useState('')
     const [photo, setPhoto]=useState('')
     const [sale_price, setSaleprice]=useState('')
     const [ciudadSeleccionada, setCiudadSeleccionada] = useState('');
     const [metododePago, setmetododePago] = useState('');
     const [tallaSeleccionada, setTallaSeleccionada] = useState('');
+    const [statusinput, setStatusinput] = useState('');
     
-   /* useEffect(() => {
-        setStock(quantity); // Actualiza el stock con la cantidad ingresada
-    }, [quantity]);
-
-    
-
-    useEffect(() => {
-        if (quantity && stock) {
-            const availableStatus = parseInt(quantity) <= parseInt(stock) ? 'disponible' : 'agotado';
-            setStatusinput(availableStatus);
-        }
-    }, [quantity, stock]);
-
-    useEffect(() => {
-        const subtotalValue = quantity && unit_price ? quantity * parseFloat(unit_price) : 0;
-        setSubtotal(subtotalValue);
-      }, [quantity, unit_price]);
-      
-
-    useEffect(() => {
-        const total = subtotal ? subtotal : 0;
-        setPricetotal(total);
-    }, [subtotal]);*/
-
     function agregarVenta(){
         var Venta ={
             shipping_cost: shipping_cost,
@@ -107,7 +90,7 @@ function AgregarVenta() {
             address: address,
             city: ciudadSeleccionada,
             phone: phone,
-            order_status: order_status,
+            order_status: statusinput,
             Method_payment: metododePago,
             date_order: date_order,
             deliver_date: deliver_date,
@@ -121,9 +104,8 @@ function AgregarVenta() {
             photo: photo,
             sale_price: sale_price,
             idsale: uniquid()
-
-            
         }
+        
         console.log(Venta)
         axios
         .post('/api/venta/Agregarventa', Venta)
@@ -151,7 +133,7 @@ function AgregarVenta() {
             <div className='col-sm-6 offset-3'>
                     <div className='mb-3'>
                         <label htmlFor='shipping_cost' className='form-label'>Costo de compra</label>
-                        <input type='number' className='form-control' value={shipping_cost} onChange={(e) => { setShippingcost(e.target.value) }}></input>
+                        <input type='number' className='form-control' value="12000" onChange={(e) => { setShippingcost(e.target.value) }}></input>
                     </div>
                     <div className='mb-3'>
                         <label htmlFor='total_sale' className='form-label'>Venta total</label>
@@ -166,35 +148,34 @@ function AgregarVenta() {
                         <input type='text' className='form-control' value={address} onChange={(e) => { setAddress(e.target.value) }}></input>
                     </div>
                     <div className='mb-3'>
-          <label htmlFor='city' className='form-label'>
-            Ciudad
-          </label>
-          <select
-            className='form-select'
-            value={ciudadSeleccionada}
-            onChange={(e) => setCiudadSeleccionada(e.target.value)}
-          >
-            <option value=''>Selecciona una ciudad</option>
-            {ciudadesColombia.map((ciudad) => (
-              <option key={ciudad} value={ciudad}>
-                {ciudad}
-              </option>
-            ))}
-          </select>
-        </div>
+                        <label htmlFor='city' className='form-label'>Ciudad</label>
+                        <select className='form-select' value={ciudadSeleccionada} onChange={(e) => setCiudadSeleccionada(e.target.value)}>
+                            <option value=''>Selecciona una ciudad</option>
+                                {ciudadesColombia.map((ciudad) => (
+                                    <option key={ciudad} value={ciudad}> {ciudad}</option>
+                                ))}
+                        </select>
+                    </div>
                     <div className='mb-3'>
                         <label htmlFor='phone' className='form-label'>Teléfono</label>
                         <input type='text' className='form-control' value={phone} onChange={(e) => { setPhone(e.target.value) }}></input>
                     </div>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Estado del Pedido</Form.Label>
-                        <Form.Check type='switch' id='custom-switch' value={order_status} onChange={(e) => { setOrderstatus(e.target.value) }}/>
-                    </Form.Group>
+                    <div className='mb-3'>
+                        <label>Estado del Pedido</label>
+                        <select className='form-select' value={statusinput} onChange={(e) => { setStatusinput(e.target.value) }}>
+                            <option value=''>Selecciona un estado</option>
+                            {estadopedido.map((orderstatus) => (
+                                <option key={orderstatus} value={orderstatus}>
+                                    {orderstatus}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                     <div className='mb-3'>
                         <label htmlFor='Method_payment' className='form-label'>Método de pago</label>
                         <select 
                         className='form-select' 
-                        value={metodoPago} 
+                        value={metododePago} 
                         onChange={(e) => { setmetododePago(e.target.value) }}>
                             <option value=''>Selecciona un método de pago</option>
                             {metodoPago.map((metododePago) => (
@@ -235,7 +216,7 @@ function AgregarVenta() {
                     </div>
                     <div className='mb-3'>
                         <label htmlFor='size' className='form-label'>Talla</label>
-                        <select type='text' className='form-control' value={size} onChange={(e) => { setSize(e.target.value) }}>
+                        <select type='text' className='form-control' value={tallaSeleccionada} onChange={(e) => { setTallaSeleccionada(e.target.value) }}>
                             <option value=''>Selecciona una talla</option>
                             {tallas.map((talla) => (
                                 <option key={talla} value={talla}>

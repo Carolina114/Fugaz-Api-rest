@@ -6,6 +6,7 @@ import uniquid from 'uniquid';
 //import App from './App';
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './style.css';
 
 function AgregarUsuario() {
     //hooks
