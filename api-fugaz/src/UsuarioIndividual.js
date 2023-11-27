@@ -1,12 +1,19 @@
 import React from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+
+// Reports JPDF
 import jsPDF from 'jspdf';
-import * as XLSX from 'xlsx';
+import 'jspdf-autotable';
+
+import styled from 'styled-components';
+//import * as XLSX from 'xlsx';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './style.css';
+
+//Hooks
+
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -88,23 +95,20 @@ function UsuarioIndividual({ usuario }) {
       });
   }
 
+
+  const usario  = useState('');
   function descargarArchivos() {
     const pdf = new jsPDF();
     pdf.text(20, 20, 'Detalles del Usuario');
 
-    document.querySelectorAll('#pdf-container tbody tr').forEach((row, index) => {
-      const columns = row.querySelectorAll('td');
-      const rowData = [];
-      columns.forEach((column) => {
-        rowData.push(column.innerText);
-      });
-      pdf.text(5, 15 + index * 5, rowData.join(', '));
-    });
+    pdf.autotable({
+      head:[]
+    })
 
     pdf.save('usuario.pdf');
   }
 
-  function descargarXls() {
+  /*function descargarXls() {
     const ws = XLSX.utils.table_to_sheet(document.querySelector('#pdf-container table'));
     const wb = XLSX.utils.book_new(
       XLSX.utils.aoa_to_sheet([
@@ -115,7 +119,7 @@ function UsuarioIndividual({ usuario }) {
     );
     XLSX.utils.book_append_sheet(wb, ws, 'usuarios');
     XLSX.writeFile(wb, 'usuarios.xlsx');
-  }
+  }*/
 
   return (
     <Container className='pdf-container'>
@@ -176,7 +180,7 @@ function UsuarioIndividual({ usuario }) {
                           <Button className="btn btn-outline-danger" onClick={descargarArchivos}>Descargar PDF</Button>
                         </TableCell>
                         <TableCell>
-                          <Button className="btn btn-outline-success" onClick={descargarXls}>Descargar Excel</Button>
+                          {/*<Button className="btn btn-outline-success" onClick={descargarXls}>Descargar Excel</Button>*/}
                         </TableCell>
                         <TableCell>
                           <Button
