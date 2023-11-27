@@ -75,12 +75,26 @@ function AgregarVenta() {
     const [name, setName]=useState('')
     //const [size, setSize]=useState('')
     const [color, setColor]=useState('')
-    const [photo, setPhoto]=useState('')
+    const [photo, setPhoto]=useState(null)
     const [sale_price, setSaleprice]=useState('')
     const [ciudadSeleccionada, setCiudadSeleccionada] = useState('');
     const [metododePago, setmetododePago] = useState('');
     const [tallaSeleccionada, setTallaSeleccionada] = useState('');
     const [statusinput, setStatusinput] = useState('');
+
+    function handleFileChange(e) {
+        const selectedFile = e.target.files[0];
+
+        if (selectedFile) {
+            const allowedTypes = ['image/jpeg', 'image/png'];
+
+            if (allowedTypes.includes(selectedFile.type)) {
+                setPhoto(selectedFile);
+            } else {
+                toast.error('Solo se permiten archivos JPG y PNG');
+            }
+        }
+    }
     
     function agregarVenta(){
         var Venta ={
@@ -230,9 +244,16 @@ function AgregarVenta() {
                         <input type='text' className='form-control' value={color} onChange={(e) => { setColor(e.target.value) }}></input>
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor='photo' className='form-label'>Foto</label>
-                        <input type='file' accept="image/*" className='form-control' value={photo} onChange={(e) => { setPhoto(e.target.value) }}></input>
-                    </div>
+                <label htmlFor='photo' className='form-label'>
+                    Foto
+                </label>
+                <input
+                    type='file'
+                    accept='.jpg, .png'
+                    className='form-control'
+                    onChange={handleFileChange}
+                />
+            </div>
                     <div className='mb-3'>
                         <label htmlFor='sale_price' className='form-label'>Precio de venta</label>
                         <input type='number' className='form-control' value={sale_price} onChange={(e) => { setSaleprice(e.target.value) }}></input>

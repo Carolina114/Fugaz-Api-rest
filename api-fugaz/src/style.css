@@ -2,12 +2,12 @@
 
 .search {
     margin-top: -93px;
-    margin-left: 950px;
+    margin-left: 870px;
     position: relative;
   }
 .agr{
   margin-top: -155px;
-  margin-left: 350px;
+  margin-left: 315px;
   position: relative;
 }
 .form-container {
@@ -16,6 +16,7 @@
   }
   
   .input-busqueda {
+    width: 300px;
     padding: 6px;
     font-size: 14px;
     border: 1px solid #ccc;
