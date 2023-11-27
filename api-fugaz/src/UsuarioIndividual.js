@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 // Reports JPDF
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { useState } from 'react';
 
 import styled from 'styled-components';
 //import * as XLSX from 'xlsx';
@@ -96,13 +97,26 @@ function UsuarioIndividual({ usuario }) {
   }
 
 
-  const usario  = useState('');
-  function descargarArchivos() {
+  const user = useState('');
+  const descargarArchivos = () => {
     const pdf = new jsPDF();
     pdf.text(20, 20, 'Detalles del Usuario');
 
-    pdf.autotable({
-      head:[]
+    pdf.autoPrint({
+      head:[['ID', 'Rol', 'Estado del Rol', 'Permiso', 'Nombre de Usuario', 'Email', 'Contraseña', 'Estado del Usuario', 'Fecha de Registro']],
+      body:[[]],
+      theme: 'striped',
+      styles: { halign: 'center' },
+      headStyles: { fillColor: [71, 160, 71] },
+      didParseCell: (data) => {
+        if (data.section === 'head') {
+          data.cell.styles.fillColor = [71, 160, 71];
+          data.cell.styles.textColor = [255, 255, 255];
+        }
+      },
+      didDrawCell: (data) => {
+        console.log(data.column.index)
+      }
     })
 
     pdf.save('usuario.pdf');
@@ -122,7 +136,7 @@ function UsuarioIndividual({ usuario }) {
   }*/
 
   return (
-    <Container className='pdf-container'>
+    <Container>
           <div className="row justify-content-center">
             <div className="col-md-8">
               <StyledCard>
